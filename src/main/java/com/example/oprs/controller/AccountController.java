@@ -1,7 +1,6 @@
 package com.example.oprs.controller;
 
 import com.example.oprs.model.User;
-import com.example.oprs.security.UserPrincipal;
 import com.example.oprs.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
