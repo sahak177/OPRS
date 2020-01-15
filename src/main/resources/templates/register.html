@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+<form action="/auth/signup" method="post">
+    <table>
+        <tr>
+            <td>
+                <label for="firstName">firstName</label>:
+                <input type="text"
+                       id="firstName"
+                       name="firstName"
+                       placeholder="firstName"
+                       required="required">
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="lastName">lastName</label>:
+                <input type="text"
+                       id="lastName"
+                       name="lastName"
+                       placeholder="lastName"
+                       required="required">
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+                <label for="email">email</label>:
+                <input type="text"
+                       id="email"
+                       name="email"
+                       placeholder="email"
+                       required="required">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="password">password</label>:
+                <input type="text"
+                       id="password"
+                       name="password"
+                       placeholder="password"
+                       required="required">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Register">
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
