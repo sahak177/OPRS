@@ -11,6 +11,7 @@ import java.security.Principal;
 
 @Controller
 public class AccountController {
+
     private final UserService userService;
 
     public AccountController(UserService userService) {

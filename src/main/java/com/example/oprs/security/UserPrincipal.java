@@ -2,7 +2,6 @@ package com.example.oprs.security;
 
 
 import com.example.oprs.model.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +17,6 @@ public class UserPrincipal implements UserDetails {
 
     private String email;
 
-    @JsonIgnore
     private String password;
 
     private Collection<? extends GrantedAuthority> authorities;
