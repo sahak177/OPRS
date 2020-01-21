@@ -8,10 +8,28 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
+
     private  final JdbcTemplate jdbcTemplate;
 
     public UserRepositoryImpl(JdbcTemplate jdbcTemplate) {
+
         this.jdbcTemplate = jdbcTemplate;
+
+        run();
+    }
+    private void run(){
+
+        jdbcTemplate.execute("create table IF NOT EXISTS USER\n" +
+                "(\n" +
+                "\tid int auto_increment,\n" +
+                "\tfirst_name varchar(225) not null,\n" +
+                "\tlast_name varchar(225) not null,\n" +
+                "\temail varchar(225) not null,\n" +
+                "\tpassword varchar(225) not null,\n" +
+                "\tconstraint user_pk\n" +
+                "\t\tprimary key (id)\n" +
+                ");\n" +
+                "                ");
     }
 
     @Override
@@ -19,18 +37,17 @@ public class UserRepositoryImpl implements UserRepository {
 
         String sf1="select * from user where email = ?";
 
-        User user=jdbcTemplate.queryForObject(sf1,
+        return jdbcTemplate.queryForObject(sf1,
                 new Object[] {username},
                 new BeanPropertyRowMapper< User >(User.class));
-
-        return user;
     }
 
     @Override
     public void save(User user) {
 
+        String str="insert into user(first_name,last_name,email,password) values (?, ?, ?, ?)";
         jdbcTemplate.update(
-                "INSERT INTO USER(first_name,last_name,email,password) VALUES (?, ?, ?, ?)", user.getFirstName(),user.getLastName(),user.getEmail(),user.getPassword());
+                str, user.getFirstName(),user.getLastName(),user.getEmail(),user.getPassword());
 
     }
 }
