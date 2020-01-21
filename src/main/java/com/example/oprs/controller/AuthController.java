@@ -19,13 +19,20 @@ public class AuthController {
         this.userService = userService;
     }
 
-    @GetMapping("/auth/signup")
+    @GetMapping("login")
+    public String signin(){
+        return "login";
+    }
+
+
+    @GetMapping("/signup")
     public String signup(){
         return "register";
     }
 
 
-    @PostMapping("/auth/signup")
+
+    @PostMapping("signup")
     public String signup(User user,Model model) {
         if(user!=null){
             userService.init(user);
@@ -35,11 +42,15 @@ public class AuthController {
         }return "message";
     }
 
-    @GetMapping("/log")
+
+    @GetMapping("/")
     public String log() {
         return "index";
     }
 
-
+    @GetMapping("/access-denied")
+    public String accessDenied() {
+        return "access-denied";
+    }
 }
 

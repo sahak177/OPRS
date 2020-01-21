@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
-      >
+      layout:decorate="~{fragments/layout}">
 <head>
     <title>Index</title>
 </head>
 <body>
-<h1><span th:text="${message}"></span></h1>
+<div layout:fragment="content" th:remove="tag">
+    <h1><span th:text="${message}"></span></h1>
     <h1>Hello <span th:text="${user}"></span></h1>
     <p>this is your account</p>
-    <ul>
-        <li> <a href="/logout" >logout</a></li>
-    </ul>
 
+</div>
 </body>
 </html>

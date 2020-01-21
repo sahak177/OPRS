@@ -1,60 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
 <head>
-    <meta charset="UTF-8">
-    <title>Register</title>
+    <title>register</title>
 </head>
 <body>
-<form action="/auth/signup" method="post">
-    <table>
-        <tr>
-            <td>
-                <label for="firstName">firstName</label>:
-                <input type="text"
-                       id="firstName"
-                       name="firstName"
-                       placeholder="firstName"
-                       required="required">
+<div layout:fragment="content" th:remove="tag">
 
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="lastName">lastName</label>:
-                <input type="text"
-                       id="lastName"
-                       name="lastName"
-                       placeholder="lastName"
-                       required="required">
-            </td>
-        </tr>
-        <tr>
-            <td>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h1>register page</h1>
+            <form th:action="@{/signup}" method="post">
+                <div class="form-group">
+                    <label for="firstName">firstName</label>:
+                    <input type="text"
+                           id="firstName"
+                           name="firstName"
+                           class="form-control"
+                           autofocus="autofocus"
+                           placeholder="firstName">
+                </div>
+                <div class="form-group">
+                    <label for="lastName">lastName</label>:
+                    <input type="text"
+                           id="lastName"
+                           name="lastName"
+                           class="form-control"
+                           autofocus="autofocus"
+                           placeholder="lastName">
+                </div>
+                <div class="form-group">
+                    <label for="email">email</label>:
+                    <input type="email"
+                           id="email"
+                           name="email"
+                           class="form-control"
+                           autofocus="autofocus"
+                           placeholder="email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>:
+                    <input type="password"
+                           id="password"
+                           name="password"
+                           class="form-control"
+                           placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <input type="submit"
+                                   name="register-submit"
+                                   id="register-submit"
+                                   class="form-control btn btn-info"
+                                   value="register">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
-                <label for="email">email</label>:
-                <input type="text"
-                       id="email"
-                       name="email"
-                       placeholder="email"
-                       required="required">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="password">password</label>:
-                <input type="text"
-                       id="password"
-                       name="password"
-                       placeholder="password"
-                       required="required">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <input type="submit" value="Register">
-            </td>
-        </tr>
-    </table>
-</form>
+    <p><a href="/" th:href="@{/}">Back to home page</a></p>
+
+</div>
 </body>
 </html>
