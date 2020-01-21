@@ -1,11 +1,11 @@
 package com.example.oprs.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 
@@ -29,12 +29,12 @@ public class JdbcConfig {
 
     @Bean
     public DataSource getDataSource(){
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setUrl(url);
-        dataSource.setUsername(username);
-        dataSource.setPassword(password);
-        dataSource.setDriverClassName(driver);
-        return dataSource;
+        DataSourceBuilder dataSource = DataSourceBuilder.create();
+        dataSource.url(url);
+        dataSource.username(username);
+        dataSource.password(password);
+        dataSource.driverClassName(driver);
+        return dataSource.build();
     }
 
 }
