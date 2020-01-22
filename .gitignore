@@ -1,4 +1,5 @@
 HELP.md
+testPass.properties
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
@@ -12,6 +13,7 @@ target/
 .settings
 .springBeans
 .sts4-cache
+pass.properties
 
 ### IntelliJ IDEA ###
 .idea
@@ -26,7 +28,7 @@ target/
 /nbdist/
 /.nb-gradle/
 build/
-pass.properties
-testPass.properties
+
+
 ### VS Code ###
 .vscode/
