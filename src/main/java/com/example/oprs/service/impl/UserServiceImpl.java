@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService {
 
     public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
+        this.passwordEncoder =passwordEncoder;
     }
 
     @Override
@@ -24,9 +24,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean init(User user) {
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
+    public void init(User user) {
+        String encodedPassword =passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 }

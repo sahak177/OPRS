@@ -27,6 +27,5 @@ target/
 /.nb-gradle/
 build/
 pass.properties
-testPass.properties
 ### VS Code ###
 .vscode/
