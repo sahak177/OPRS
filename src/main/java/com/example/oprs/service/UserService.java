@@ -4,5 +4,5 @@ import com.example.oprs.model.User;
 
 public interface UserService {
    User getUserByEmail(String username);
-   void init (User user);
+   boolean add (User user);
 }

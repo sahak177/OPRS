@@ -33,7 +33,7 @@ public class AuthController {
     @PostMapping("signup")
     public String signup(User user,Model model) {
         if(user!=null){
-            userService.init(user);
+            userService.add(user);
             model.addAttribute("message", user.getFirstName()+" you successfully registered");
         }else {
             model.addAttribute("message",   " something went wrong ");
