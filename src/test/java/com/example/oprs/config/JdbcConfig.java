@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import javax.sql.DataSource;
 
 @Configuration
-@PropertySource("classpath:testpass.properties")
+@PropertySource("classpath:testPass.properties")
 public class JdbcConfig {
 
     @Value("${spring.datasource.url}")

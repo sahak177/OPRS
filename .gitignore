@@ -1,5 +1,5 @@
 HELP.md
-
+testPass.properties
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
@@ -14,7 +14,7 @@ target/
 .springBeans
 .sts4-cache
 pass.properties
-testpass.properties
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
