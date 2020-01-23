@@ -43,11 +43,11 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void save(User user) {
+    public boolean save(User user) {
 
         String str="insert into user(first_name,last_name,email,password) values (?, ?, ?, ?)";
         jdbcTemplate.update(
                 str, user.getFirstName(),user.getLastName(),user.getEmail(),user.getPassword());
-
+         return true;
     }
 }
