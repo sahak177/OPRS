@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Sql("/DataForTest.sql")
+@Sql("/data.sql")
 public class TestUserRepositoryImpl {
 
     @Autowired
@@ -21,20 +21,18 @@ public class TestUserRepositoryImpl {
 
     @Test
     public void testInit() {
-
-        String email = "Bruce@gmail.com";
+        Long socialNumber= 22222222L;
+        String email = "Bruce17@gmail.com";
         String password = "EncodedPassword";
         String firstName = "Bruce";
         String lastName = "Lee";
 
         User user = new User();
-
+        user.setSocialNumber(socialNumber);
         user.setEmail(email);
         user.setPassword(password);
         user.setLastName(lastName);
         user.setFirstName(firstName);
-
-        userRepository.save(user);
 
         Assert.assertTrue(userRepository.save(user));
     }

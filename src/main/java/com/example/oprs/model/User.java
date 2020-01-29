@@ -1,9 +1,13 @@
 package com.example.oprs.model;
 
+import java.util.List;
+
 public class User {
 
 
     private Long id;
+
+    private Long socialNumber;
 
     private String email;
 
@@ -13,10 +17,12 @@ public class User {
 
     private String lastName;
 
+    private List<Role> roles;
 
 
     public User() {
     }
+
 
     public Long getId() {
         return id;
@@ -24,6 +30,14 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getSocialNumber() {
+        return socialNumber;
+    }
+
+    public void setSocialNumber(Long socialNumber) {
+        this.socialNumber = socialNumber;
     }
 
     public String getEmail() {
@@ -58,6 +72,32 @@ public class User {
         this.lastName = lastName;
     }
 
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public boolean isNotNull(){
+        if(this.getPassword()!=null){
+            return true;
+        }
+        if(this.getEmail()!=null){
+            return true;
+        }
+        if(this.getFirstName()!=null){
+            return true;
+        }
+        if(this.getLastName()!=null){
+            return true;
+        }
+        if(this.getSocialNumber()!=null){
+            return true;
+        }else
+            return false;
+        }
     @Override
     public String toString() {
         return "User{" +

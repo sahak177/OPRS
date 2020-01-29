@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @SpringJUnitConfig
-@Sql("/DataForTest.sql")
+@Sql("/data.sql")
 public class TestAccountController {
 
 
@@ -46,7 +46,7 @@ public class TestAccountController {
     }
 
 
-    @WithMockUser(username = "Bruce@gmail.com")
+    @WithMockUser(username = "James@gmail.com")
     @Test
     public void testSignUpPostRequestWithLogin() throws Exception {
 

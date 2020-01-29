@@ -13,6 +13,15 @@
             <h1>register page</h1>
             <form th:action="@{/signup}" method="post">
                 <div class="form-group">
+                    <label for="socialNumber">socialNumber</label>:
+                    <input type="text"
+                           id="socialNumber"
+                           name="socialNumber"
+                           class="form-control"
+                           autofocus="autofocus"
+                           placeholder="socialNumber">
+                </div>
+                <div class="form-group">
                     <label for="firstName">firstName</label>:
                     <input type="text"
                            id="firstName"
@@ -20,6 +29,7 @@
                            class="form-control"
                            autofocus="autofocus"
                            placeholder="firstName">
+
                 </div>
                 <div class="form-group">
                     <label for="lastName">lastName</label>:

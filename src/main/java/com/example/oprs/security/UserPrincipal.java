@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class UserPrincipal implements UserDetails {
 
@@ -29,7 +30,9 @@ public class UserPrincipal implements UserDetails {
     }
 
     public static UserPrincipal create(User user) {
-        List<GrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+        List<GrantedAuthority> authorities = (user.getRoles()).stream().map(role ->
+                new SimpleGrantedAuthority(role.getRoleName())
+        ).collect(Collectors.toList());
         return new UserPrincipal(
                 user.getId(),
                 user.getEmail(),
