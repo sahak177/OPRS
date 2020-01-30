@@ -48,7 +48,7 @@ public class InitializeDatabase {
         jdbcTemplate.execute("create table USER\n" +
                 "(\n" +
                 "\tid int auto_increment,\n" +
-                "\tsocial_number int(11) not null,\n" +
+                "\tsocial_number bigint not null,\n" +
                 "\tfirst_name varchar(225) not null,\n" +
                 "\tlast_name varchar(225) not null,\n" +
                 "\temail varchar(225) not null,\n" +

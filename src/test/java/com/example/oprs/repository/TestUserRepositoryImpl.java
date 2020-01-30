@@ -21,7 +21,7 @@ public class TestUserRepositoryImpl {
 
     @Test
     public void testInit() {
-        String socialNumber= "22222222";
+        String socialNumber= "12345678";
         String email = "Bruce17@gmail.com";
         String password = "EncodedPassword";
         String firstName = "Bruce";

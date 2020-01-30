@@ -20,7 +20,7 @@ public class TestUserServiceImpl {
 
     @Test
     public void testInit() {
-        String socialNumber= "22222222";
+        String socialNumber= "123456789";
         String email = "Bruce@gmail.com";
         String password = "EncodedPassword";
         String firstName = "Bruce";

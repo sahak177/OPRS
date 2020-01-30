@@ -44,7 +44,7 @@ public class TestAuthController {
 
     @Test
     public void testSignUpPostRequest() throws Exception {
-        String socialNumber= "22222222";
+        String socialNumber= "123456789";
         String email = "Jim@gmail.com";
         String password = "EncodedPassword";
         String firstName = "Jim";
