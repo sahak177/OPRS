@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Sql("/DataForTest.sql")
+@Sql("/data.sql")
 public class TestUserServiceImpl {
 
     @Autowired
@@ -20,27 +20,25 @@ public class TestUserServiceImpl {
 
     @Test
     public void testInit() {
-
+        String socialNumber= "123456789";
         String email = "Bruce@gmail.com";
         String password = "EncodedPassword";
         String firstName = "Bruce";
         String lastName = "Lee";
 
         User user = new User();
-
+        user.setSocialNumber(socialNumber);
         user.setEmail(email);
         user.setPassword(password);
         user.setLastName(lastName);
         user.setFirstName(firstName);
-
-        userService.add(user);
 
         Assert.assertTrue(userService.add(user));
     }
 
 
     @Test(expected = NullPointerException.class)
-    public void testInitByNull() {
+    public void testAddByNull() {
         User user = new User();
         userService.add(user);
     }

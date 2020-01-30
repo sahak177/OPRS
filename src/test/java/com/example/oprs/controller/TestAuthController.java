@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-@Sql("/DataForTest.sql")
+@Sql("/data.sql")
 public class TestAuthController {
 
     @Autowired
@@ -44,14 +44,16 @@ public class TestAuthController {
 
     @Test
     public void testSignUpPostRequest() throws Exception {
-        String email = "James@gmail.com";
+        String socialNumber= "123456789";
+        String email = "Jim@gmail.com";
         String password = "EncodedPassword";
-        String firstName = "James";
-        String lastName = "Bond";
+        String firstName = "Jim";
+        String lastName = "kerry";
         String message = firstName + " you successfully registered";
 
         mockMvc.perform(post("/signup")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+                .param("socialNumber",socialNumber)
                 .param("firstName", firstName)
                 .param("lastName", lastName)
                 .param("password", password)
@@ -65,7 +67,7 @@ public class TestAuthController {
 
     @Test
     public void testLoginPost() throws Exception {
-        String email = "Bruce@gmail.com";
+        String email = "James@gmail.com";
         String password = "EncodedPassword";
 
         mockMvc.perform(post("/login")
