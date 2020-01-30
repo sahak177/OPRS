@@ -13,26 +13,26 @@ public class InitializeDatabase {
 
     private final JdbcTemplate jdbcTemplate;
     private final PasswordEncoder passwordEncoder;
-    private final Environment prop;
+    private final Environment properties;
 
-    public InitializeDatabase(JdbcTemplate jdbcTemplate, PasswordEncoder passwordEncoder, Environment prop) {
+    public InitializeDatabase(JdbcTemplate jdbcTemplate, PasswordEncoder passwordEncoder, Environment properties) {
 
         this.jdbcTemplate = jdbcTemplate;
         this.passwordEncoder = passwordEncoder;
-        this.prop = prop;
+        this.properties = properties;
         run();
     }
 
     private void run() {
-
-        String email= prop.getProperty("super.admin.email");
-        String password = prop.getProperty("super.admin.password");
-        String firstName= prop.getProperty("super.admin.firstName");
-        String lastName= prop.getProperty("super.admin.lastName");
-        String socialNumber= prop.getProperty("super.admin.socialNumber");
+        //get from properties file : pass.properties
+        String email= properties.getProperty("super.admin.email");
+        String password = properties.getProperty("super.admin.password");
+        String firstName= properties.getProperty("super.admin.firstName");
+        String lastName= properties.getProperty("super.admin.lastName");
+        String socialNumber= properties.getProperty("super.admin.socialNumber");
         String encodedPassword = passwordEncoder.encode(password);
 
-
+        //'USER_ROLE'
         jdbcTemplate.execute("drop table IF EXISTS user_role  ");
         jdbcTemplate.execute("drop table IF EXISTS Role ");
         jdbcTemplate.execute("drop table IF EXISTS user ");
@@ -68,9 +68,9 @@ public class InitializeDatabase {
                 ");");
 
 
-        String st = "insert into role(role_name)values(?)";
+        String st = "insert into role(role_name)values(?);";
 
-        String strUser = "insert into user(social_number,first_name,last_name,email,password)values(?,?,?,?,?)";
+        String strUser = "insert into user(social_number,first_name,last_name,email,password)values(?,?,?,?,?);";
 
         String strRole = "insert into user_role (user_id,role_id) values ((select id from user where email=?),\n" +
                 "(select id from role where role_name ='ADMIN' ));";

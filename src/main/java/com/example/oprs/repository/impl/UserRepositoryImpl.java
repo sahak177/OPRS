@@ -3,6 +3,8 @@ package com.example.oprs.repository.impl;
 import com.example.oprs.model.Role;
 import com.example.oprs.model.User;
 import com.example.oprs.repository.UserRepository;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.*;
 import org.springframework.stereotype.Repository;
 
@@ -11,12 +13,16 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Repository
+@PropertySource("classpath:pass.properties")
 public class UserRepositoryImpl implements UserRepository {
 
     private  final JdbcTemplate jdbcTemplate;
+    private final Environment properties;
 
-    public UserRepositoryImpl(JdbcTemplate jdbcTemplate) {
+
+    public UserRepositoryImpl(JdbcTemplate jdbcTemplate,Environment properties) {
         this.jdbcTemplate = jdbcTemplate;
+        this.properties=properties;
     }
 
     @Override
@@ -45,16 +51,16 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public boolean save(User user) {
-
+        String defaultRole=properties.getProperty("default.Role");
         String str="insert into user(social_number,first_name,last_name,email,password) values (?, ?, ?, ?, ?)";
 
         String strRole="insert into user_role values ((select id from user where email=?)," +
-                "( select id from role where role_name ='USER_ROLE') );";
+                "( select id from role where role_name =?) );";
 
         jdbcTemplate.update(
                 str,user.getSocialNumber(), user.getFirstName(),user.getLastName(),user.getEmail(),user.getPassword());
         jdbcTemplate.update(
-                strRole, user.getEmail());
+                strRole, user.getEmail(),defaultRole) ;
          return true;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.oprs.controller;
 
+import com.example.oprs.exception.InValidInput;
 import com.example.oprs.model.User;
 import com.example.oprs.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -18,26 +19,34 @@ public class AuthController {
     }
 
     @GetMapping("login")
-    public String signin(){
+    public String signin() {
         return "login";
     }
 
 
     @GetMapping("/signup")
-    public String signup(){
+    public String signup() {
         return "register";
     }
 
 
-
     @PostMapping("signup")
-    public String signup(User user,Model model) {
-        if(user.isNotNull()){
+    public String signup(User user, Model model) {
+        try {
+            user.validateInput();
             userService.add(user);
-            model.addAttribute("message", user.getFirstName()+" you successfully registered");
-        }else {
-            model.addAttribute("message",   " something went wrong try again");
-        }return "message";
+            model.addAttribute("message", user.getFirstName() + " you successfully registered");
+        } catch (InValidInput inValidInput) {
+            model.addAttribute("email", user.getEmail());
+            model.addAttribute("firstName", user.getFirstName());
+            model.addAttribute("lastName", user.getLastName());
+            model.addAttribute("socialNumber", user.getSocialNumber());
+            model.addAttribute("message", " something went wrong try again\n" + inValidInput.getMessage());
+            return "register";
+        }
+
+
+        return "message";
     }
 
 
