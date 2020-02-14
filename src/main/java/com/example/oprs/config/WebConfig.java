@@ -26,7 +26,6 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
 
-
     @Bean
 
     public ClassLoaderTemplateResolver templateResolver() {
@@ -34,7 +33,7 @@ public class WebConfig implements WebMvcConfigurer {
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
 
         templateResolver.setPrefix("templates/");
-        templateResolver.setCacheable(true);
+       // templateResolver.setCacheable(true);
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode("HTML");
         templateResolver.setCharacterEncoding("UTF-8");
@@ -61,7 +60,6 @@ public class WebConfig implements WebMvcConfigurer {
     public ViewResolver viewResolver() {
 
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-
         viewResolver.setTemplateEngine(templateEngine());
         viewResolver.setCharacterEncoding("UTF-8");
 
@@ -71,6 +69,6 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("index");
+        registry.addViewController("/").setViewName("basic/index");
     }
 }

@@ -1,4 +1,4 @@
-package com.example.oprs.model;
+package com.example.oprs.pojo;
 
 public class Role {
     private Long id;

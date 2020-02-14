@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>request</title>
+    <style>
+        .red {
+            color: white;
+            background-color: red;
+        }
+
+        .green {
+            color: white;
+            background-color: green;
+        }
+
+        .blue {
+            color: white;
+            background-color: blue;
+        }
+    </style>
+
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a href="#stepFirst" class="nav-link active" role="tab" data-toggle="tab">applicant
+                            information</a>
+                    </li>
+                    <li class="nav-item" th:if="${request.getPurpose().toString().equals('EXPIRED')}">
+                        <a href="#stepExpired" class="nav-link" role="tab" data-toggle="tab">Old Passport
+                            details</a>
+                    </li>
+                    <li class="nav-item" th:if="${request.getPurpose().toString().equals('LOST_OR_DAMAGED')}">
+                        <a href="#stepLost" class="nav-link" role="tab" data-toggle="tab">information for cancel lost passport
+                            </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#stepNew" class="nav-link " role="tab" data-toggle="tab">new passport details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#stepPhoto" class="nav-link" role="tab" data-toggle="tab">Photo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#stepApplication" class="nav-link" role="tab" data-toggle="tab">Application Details</a>
+                    </li>
+                    <li class="nav-item">
+                         <form th:action="@{/passport/step1}" method="post" id="SendRequest" enctype="multipart/form-data">
+                             <input type="submit" value="Send Request" class="btn">
+                        </form>
+                    </li>
+                </ul>
+                    <h1><span th:text="${message}"></span></h1>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="stepFirst">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <h1>applicant information</h1>
+                                    <input type="hidden"
+                                           id="purpose"
+                                           name="purpose"
+                                           class="form-control"
+                                           autofocus="autofocus"
+                                           placeholder="purpose"
+                                           form="SendRequest"
+                                           th:value="${request.getPurpose()}">
+                                    <div class="form-group">
+                                        <label for="firstName">first Name</label>:
+                                        <input type="text"
+                                               id="firstName"
+                                               name="firstName"
+                                               class="form-control"
+                                               autofocus="autofocus"
+                                               placeholder="firstName"
+                                               required="required"
+                                               form="SendRequest"
+                                               th:value="${request.getFirstName()}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastName">last Name</label>:
+                                        <input type="text"
+                                               id="lastName"
+                                               name="lastName"
+                                               class="form-control"
+                                               autofocus="autofocus"
+                                               placeholder="lastName"
+                                               required="required"
+                                               form="SendRequest"
+                                               th:value="${request.getLastName()}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="gender">
+                                            <input type="radio"
+                                                   id="gender"
+                                                   name="gender"
+                                                   class="radio-menu-item"
+                                                   autofocus="autofocus"
+                                                   placeholder="gender"
+                                                   form="SendRequest"
+                                                   value="false">
+                                            female
+                                        </label>:
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="gender1">
+                                            <input type="radio"
+                                                   id="gender1"
+                                                   name="gender"
+                                                   class="radio-menu-item"
+                                                   autofocus="autofocus"
+                                                   placeholder="gender"
+                                                   form="SendRequest"
+                                                   value="true">
+                                            male
+                                        </label>:
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="DateOfBirth">birth Date</label>:
+                                        <input type="date"
+                                               id="DateOfBirth"
+                                               name="DateOfBirth"
+                                               class="form-control"
+                                               placeholder="DateOfBirth"
+                                               required="required"
+                                               form="SendRequest"
+                                               th:value="${request.getDateOfBirth()}">
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="countryOfBirth">countryOfBirth</label>:
+                                        <input type="text"
+                                               id="countryOfBirth"
+                                               name="countryOfBirth"
+                                               class="form-control"
+                                               placeholder="countryOfBirth"
+                                               required="required"
+                                               form="SendRequest"
+                                               th:value="${request.getCountryOfBirth()}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade " id="stepNew">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <h1>new passport details</h1>
+
+                                    <div class="form-group">
+                                        <label for="socialSecurityNumber">Social Security Number</label>:
+                                        <input type="text"
+                                               id="socialSecurityNumber"
+                                               name="socialSecurityNumber"
+                                               class="form-control"
+                                               autofocus="autofocus"
+                                               placeholder="socialSecurityNumber"
+                                               form="SendRequest"
+                                               th:value="${request.getSocialSecurityNumber()}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="stepExpired">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <h1>expired passport details</h1>
+                                    <div class="form-group">
+                                        <label for="oldPassportNumber">old passport number</label>:
+                                        <input type="text"
+                                               id="oldPassportNumber"
+                                               name="oldPassportNumber"
+                                               class="form-control"
+                                               autofocus="autofocus"
+                                               placeholder="oldPassportNumber"
+                                               form="SendRequest"
+                                               th:value="${request.getOldPassportNumber()}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="fromWhom">from whom</label>:
+                                        <input type="number"
+                                               id="fromWhom"
+                                               name="fromWhom"
+                                               class="form-control"
+                                               placeholder="fromWhom"
+
+                                               form="SendRequest"
+                                               th:value="${request.getFromWhom()}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="givenDate">given Date</label>:
+                                        <input type="date"
+                                               id="givenDate"
+                                               name="givenDate"
+                                               class="form-control"
+                                               placeholder="givenDate"
+                                               form="SendRequest"
+                                               th:value="${request.getGivenDate()}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="expireDate">expire Date</label>:
+                                        <input type="date"
+                                               id="expireDate"
+                                               name="expireDate"
+                                               class="form-control"
+                                               placeholder="expireDate"
+                                               form="SendRequest"
+                                               th:value="${request.getExpireDate()}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="stepPhoto">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <h1>Photo</h1>
+                                    <div class="form-group">
+                                        <label for="multiPhoto">photo</label>:
+                                        <input type="file"
+                                               id="multiPhoto"
+                                               name="multiPhoto"
+                                               class="form-control"
+                                               placeholder="multiPhoto"
+                                               accept="image/x-png,image/gif,image/jpeg"
+                                               required="required"
+                                               form="SendRequest"
+                                               th:value="${request.getPhoto()}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="stepLost">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <h1>information for cancel lost passport</h1>
+                                    <div class="form-group">
+                                        <label for="oldPassportNumber">Lost passport number</label>:
+                                        <input type="text"
+                                               id="lostPassportNumber"
+                                               name="oldPassportNumber"
+                                               class="form-control"
+                                               autofocus="autofocus"
+                                               placeholder="oldPassportNumber"
+                                               form="SendRequest"
+                                               th:value="${request.getOldPassportNumber()}">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane fade" id="stepApplication">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <h1>Application Details</h1>
+                                    <div class="form-group">
+                                        <label for="address">address</label>:
+                                        <input type="text"
+                                               id="address"
+                                               name="address"
+                                               class="form-control"
+                                               autofocus="autofocus"
+                                               placeholder="address"
+                                               required="required"
+                                               form="SendRequest"
+                                               th:value="${request.getAddress()}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">email</label>:
+                                        <input type="email"
+                                               id="email"
+                                               name="email"
+                                               class="form-control"
+                                               autofocus="autofocus"
+                                               placeholder="email"
+                                               required="required"
+                                               form="SendRequest"
+                                               th:value="${request.getEmail()}">
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phoneNumber">Phone Number</label>:
+                                        <input type="number"
+                                               id="phoneNumber"
+                                               name="phoneNumber"
+                                               class="form-control"
+                                               autofocus="autofocus"
+                                               placeholder="phoneNumber"
+                                               required="required"
+                                               form="SendRequest"
+                                               th:value="${request.getPhoneNumber()}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="postCode">post code</label>:
+                                        <input type="number"
+                                               id="postCode"
+                                               name="postCode"
+                                               class="form-control"
+                                               autofocus="autofocus"
+                                               placeholder="postCode"
+                                               required="required"
+                                               form="SendRequest"
+                                               th:value="${request.getPostCode()}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

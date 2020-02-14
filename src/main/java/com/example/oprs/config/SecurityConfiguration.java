@@ -56,6 +56,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/img/**",
                         "/webjars/**").permitAll()
                 .antMatchers("/signup").permitAll()
+                .antMatchers("/admin/*").hasRole("ADMIN")
+                .antMatchers("/workPlace/*").hasAnyRole("ADMIN", "OFFICER", "OVIR_OFFICER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -71,8 +73,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler);
-
-
 
 
     }

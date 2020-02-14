@@ -1,11 +1,15 @@
 package com.example.oprs.repository.impl;
 
-import com.example.oprs.model.Role;
-import com.example.oprs.model.User;
+import com.example.oprs.mappers.RoleMapper;
+import com.example.oprs.pojo.Officer;
+import com.example.oprs.pojo.Role;
+import com.example.oprs.pojo.User;
 import com.example.oprs.repository.UserRepository;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.jdbc.core.*;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
@@ -16,51 +20,87 @@ import java.util.List;
 @PropertySource("classpath:pass.properties")
 public class UserRepositoryImpl implements UserRepository {
 
-    private  final JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
     private final Environment properties;
 
 
-    public UserRepositoryImpl(JdbcTemplate jdbcTemplate,Environment properties) {
+    public UserRepositoryImpl(JdbcTemplate jdbcTemplate, Environment properties) {
         this.jdbcTemplate = jdbcTemplate;
-        this.properties=properties;
+        this.properties = properties;
     }
 
     @Override
     public User getUserByEmail(String username) {
 
-        String sf1="select * from user where email = ?";
-        User user= jdbcTemplate.queryForObject(sf1,
-                new Object[] {username},
-                new BeanPropertyRowMapper< User >(User.class));
-        String sf2="SELECT * FROM ROLE inner JOIN USER_ROLE ON ROLE.ID=USER_ROLE.ROLE_ID AND USER_ID=? ";
+        String sf1 = "select * from user where email = ?";
+        User user = jdbcTemplate.queryForObject(sf1,
+                new Object[]{username},
+                new BeanPropertyRowMapper<User>(User.class));
+        String rol = "SELECT * FROM ROLE inner JOIN USER_ROLE ON ROLE.ID=USER_ROLE.ROLE_ID AND USER_ID=? ";
         List<Role> roles = jdbcTemplate.query(
-                sf2,
-                new Object[] {user.getId()},
-                new RowMapper<Role>() {
-                    public Role mapRow(ResultSet rs, int rowNum) throws SQLException {
-                        Role c = new Role();
-                        c.setId(rs.getLong(1));
-                        c.setRoleName(rs.getString(2));
-                        return c;
+                rol,
+                new Object[]{user.getId()},
+                new RoleMapper());
+        user.setRoles(roles);
+        String tok = "SELECT * FROM Tokens where user_id=? ";
+        List<String> tokens = jdbcTemplate.query(
+                tok,
+                new Object[]{user.getId()},
+                new RowMapper<String>() {
+                    @Override
+                    public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        String token = rs.getString("token");
+                        return token;
                     }
                 });
-        user.setRoles(roles);
+        user.setTokens(tokens);
+
 
         return user;
     }
 
     @Override
     public boolean save(User user) {
-        String defaultRole=properties.getProperty("default.Role");
-        String str="insert into user(social_number,first_name,last_name,email,password) values (?, ?, ?, ?, ?)";
+        String defaultRole = properties.getProperty("default.Role");
+        String str = "insert into user(social_number,first_name,last_name,email,password) values (?, ?, ?, ?, ?)";
 
-        String strRole="insert into user_role values ((select id from user where email=?)," +
+        String strRole = "insert into user_role values ((select id from user where email=?)," +
                 "( select id from role where role_name =?) );";
 
         jdbcTemplate.update(
-                str,user.getSocialNumber(), user.getFirstName(),user.getLastName(),user.getEmail(),user.getPassword());
+                str, user.getSocialSecurityNumber(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword());
         jdbcTemplate.update(
-                strRole, user.getEmail(),defaultRole) ;
-         return true;
+                strRole, user.getEmail(), defaultRole);
+        return true;
+    }
+
+    @Override
+    public boolean saveFromAdmin(Officer officer) {
+
+        String str = "insert into user(social_number,first_name,last_name,email,password) values (?, ?, ?, ?, ?)";
+
+        String strRole = "insert into user_role values ((select id from user where email=?)," +
+                "( select id from role where role_name =?) );";
+
+        jdbcTemplate.update(
+                str, officer.getSocialNumber(), officer.getFirstName(), officer.getLastName(), officer.getEmail(), officer.getPassword());
+        jdbcTemplate.update(
+                strRole, officer.getEmail(), officer.getRole());
+        return true;
+    }
+
+    @Override
+    public boolean updatePassword(String encodedNewPassword, String currentUser) {
+        String str = "UPDATE user SET password=?,isActive=true where email=? ";
+        jdbcTemplate.update(
+                str, encodedNewPassword, currentUser);
+        return true;
+    }
+
+    public boolean addToken(Long userId, String token) {
+        String strToken = "insert into tokens (token,user_id) values (?,?);";
+        jdbcTemplate.update(
+                strToken, token, userId);
+        return false;
     }
 }

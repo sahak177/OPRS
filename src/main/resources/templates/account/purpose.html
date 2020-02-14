@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout.html}">
+<head>
+    <title>Oprs.com</title>
+</head>
+<body>
+<div layout:fragment="content" class="bg-light border-right col-md-10">
+    <form th:action="@{/passport/step}" method="post">
+
+        <label><h2>Select purpose</h2></label>
+
+    <select name="purpose" id = "purpose" class="styled-select.slate">
+        <option value = "NEW">First Passport</option>
+        <option value = "EXPIRED">Expire Passport</option>
+        <option value = "LOST_OR_DAMAGED">lost or damaged</option>
+    </select>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <input type="submit" id="submit" value="Continue" class="btn"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -6,10 +6,11 @@
     <title>Index</title>
 </head>
 <body>
-<div layout:fragment="content" th:remove="tag">
+<div layout:fragment="content" class="bg-light border-right col-md-10">
+
     <h1><span th:text="${message}"></span></h1>
-    <h1>Hello <span th:text="${user}"></span></h1>
-    <p>this is your account</p>
+    <p></p>
+    <a href="/" th:href="@{/}"><h2>Back to home page</h2></a>
 
 </div>
 </body>

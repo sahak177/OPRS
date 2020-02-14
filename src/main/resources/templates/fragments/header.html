@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:width="http://www.w3.org/1999/xhtml"
+      xmlns:height="http://www.w3.org/1999/xhtml">
 <body>
 <th:block th:fragment="header">
     <nav class="navbar navbar-inverse navbar-static-top">
@@ -7,25 +8,52 @@
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-left">
                     <a class="active" th:href="@{/}">
-                        <img th:src="@{/img/OprsLogo.png}" alt="OPRS"/>
+                        <img th:src="@{/img/OprsLogo.png}" alt="OPRS" width="75px" height="50px"/>
                     </a>
                 </ul>
-                <ul class="nav navbar-nav">
-                    <li class="active">
+
+                <ul class="nav navbar-nav navbar-left">
+                    <li>
                         <a href="/" th:href="@{/}">Home</a>
                     </li>
+                    <li th:if="${#authorization.expression('isAuthenticated()')}">
+                        <a href="/account" th:href="@{/account}">My Account</a>
+                    </li>
                 </ul>
+
                 <ul class="nav navbar-nav navbar-right">
+
+                    <li th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')') }">
+                        <a href="/work/1" th:href="@{/admin/workPlace}">Admin place</a>
+                    </li>
+
+                    <li th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')') ||
+                    #authorization.expression('hasAuthority(''ROLE_OFFICER'')')||
+                    #authorization.expression('hasAuthority(''ROLE_OVIR_OFFICER'')')}">
+                        <a href="/workPlace/work" th:href="@{/workPlace/work}">working place</a>
+                    </li>
+
+                    <li th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')') ||
+                    #authorization.expression('hasAuthority(''ROLE_OFFICER'')')||
+                    #authorization.expression('hasAuthority(''ROLE_OVIR_OFFICER'')')}">
+
+
+                        <a href="/changePassword" th:href="@{/workPlace/changePassword}">change Password</a>
+                    </li>
+
+
                     <li th:if="${#authorization.expression('!isAuthenticated()')}">
                         <a href="/signin" th:href="@{/login}">
                             <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Sign in
                         </a>
                     </li>
+
                     <li th:if="${#authorization.expression('isAuthenticated()')}">
-                        <a href="/logout" th:href="@{logout}" onclick="$('#form').submit();">
-                            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout
+                        <a href="/logout" th:href="@{/logout}" onclick="$('#form').submit();">
+                            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Sign out
                         </a>
-                        <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
+                        <form style="visibility: hidden" id="form" method="post" action="#"
+                              th:action="@{/logout}"></form>
                     </li>
                 </ul>
 

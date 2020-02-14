@@ -1,6 +1,6 @@
 package com.example.oprs.repository;
 
-import com.example.oprs.model.User;
+import com.example.oprs.pojo.User;
 import com.example.oprs.repository.impl.UserRepositoryImpl;
 import org.junit.Assert;
 import org.junit.Test;
@@ -28,7 +28,7 @@ public class TestUserRepositoryImpl {
         String lastName = "Lee";
 
         User user = new User();
-        user.setSocialNumber(socialNumber);
+        user.setSocialSecurityNumber(socialNumber);
         user.setEmail(email);
         user.setPassword(password);
         user.setLastName(lastName);

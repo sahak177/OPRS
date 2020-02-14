@@ -1,12 +1,15 @@
 package com.example.oprs.controller;
 
-import com.example.oprs.exception.InValidInput;
-import com.example.oprs.model.User;
+import com.example.oprs.exception.InValidInputException;
+import com.example.oprs.pojo.User;
 import com.example.oprs.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.view.RedirectView;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 @Controller
@@ -18,41 +21,45 @@ public class AuthController {
         this.userService = userService;
     }
 
-    @GetMapping("login")
-    public String signin() {
-        return "login";
+    @GetMapping("/login")
+    public Object signin(HttpServletRequest request) {
+
+        if (request.getUserPrincipal() != null) {
+            return new RedirectView("/account");
+        }
+
+        return "basic/login";
     }
 
 
     @GetMapping("/signup")
-    public String signup() {
-        return "register";
+    public String signupGet(User user, Model model) {
+        model.addAttribute("user", user);
+        return "basic/register";
     }
 
 
-    @PostMapping("signup")
+    @PostMapping("/signup")
     public String signup(User user, Model model) {
         try {
-            user.validateInput();
+            userService.validateInput(user);
             userService.add(user);
             model.addAttribute("message", user.getFirstName() + " you successfully registered");
-        } catch (InValidInput inValidInput) {
-            model.addAttribute("email", user.getEmail());
-            model.addAttribute("firstName", user.getFirstName());
-            model.addAttribute("lastName", user.getLastName());
-            model.addAttribute("socialNumber", user.getSocialNumber());
-            model.addAttribute("message", " something went wrong try again\n" + inValidInput.getMessage());
-            return "register";
+        } catch (InValidInputException inValidInputException) {
+            model.addAttribute("user", user);
+            model.addAttribute("message", " something went wrong try again\n" + inValidInputException.getMessage());
+            return "basic/register";
         }
 
 
-        return "message";
+        return "basic/message";
     }
 
 
     @GetMapping("/")
-    public String log() {
-        return "index";
+    public String log(Model model) {
+        return "basic/index";
+//        return "basic/index";
     }
 
     @GetMapping("/access-denied")
