@@ -20,7 +20,7 @@ public class InitializeDatabase {
         this.jdbcTemplate = jdbcTemplate;
         this.passwordEncoder = passwordEncoder;
         this.properties = properties;
-//        run();
+        run();
     }
 
     private void run() {
