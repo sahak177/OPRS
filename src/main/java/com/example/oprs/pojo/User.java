@@ -21,8 +21,6 @@ public class User {
 
     private List<Role> roles;
 
-    private boolean isActive;
-
     public User() {
     }
 
@@ -81,14 +79,6 @@ public class User {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
     }
 
     public List<String> getTokens() {

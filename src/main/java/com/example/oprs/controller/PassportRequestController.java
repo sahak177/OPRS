@@ -29,7 +29,10 @@ public class PassportRequestController {
     }
 
     @PostMapping("/step")
-    public String step(Model model, RequestInfo requestInfo, String purpose) {
+    public Object step(Model model, RequestInfo requestInfo, String purpose) {
+        if(Purpose.valueOf(purpose)==null){
+            return new RedirectView("account/purpose");
+        }
         requestInfo.setPurpose(Purpose.valueOf(purpose));
         model.addAttribute("request", requestInfo);
         return "passport/NewPassport";
@@ -40,18 +43,21 @@ public class PassportRequestController {
     public Object step1(HttpServletRequest request, Model model, RequestInfo requestInfo, MultipartFile multiPhoto) {
 
         try {
-            requestService.validateRequestInfo(requestInfo);
+            requestService.validateRequestInfo(requestInfo, multiPhoto);
             Principal principal = request.getUserPrincipal();
             String name = UniqueNameGenerator.generateName("photo");
             String photoName = fileService.uploadFile(multiPhoto, name);
-            requestInfo.setPhoto(photoName);
+            requestInfo.setPhotoUrl(photoName);
             requestService.doRequest(requestInfo, principal.getName());
             return "passport/request5";
-        } catch (InValidInputException e) {
-            model.addAttribute("message", "something vent Wrong");
+     }
+        catch (InValidInputException e) {
             model.addAttribute("request", requestInfo);
-            return new RedirectView("/passport/step");
-        }
+            model.addAttribute("photo", multiPhoto);
+            model.addAttribute("message", "something vent Wrong   "+e.getMessage());
+            return "passport/NewPassport";
+//            return new RedirectView("/passport/step");
+   }
 
     }
 

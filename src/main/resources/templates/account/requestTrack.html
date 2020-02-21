@@ -7,6 +7,10 @@
 </head>
 <body>
 <div layout:fragment="content" class="bg-light border-right col-md-10">
+
+    <div th:if="${requests==null}">
+        <div class="err" color="#FF0000"> <td th:text="${message}"/></div>
+    </div>
     <div th:if="${requests!=null}">
         <h3>all requests</h3>
         <div th:if="${requests.isEmpty()}">
@@ -23,18 +27,25 @@
                     <th scope="col">social Number</th>
                     <th scope="col">status</th>
                     <th scope="col">creat time</th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
                 <div th:each="request: ${requests}">
                     <tr>
                         <td th:text="${request.getId()}"/>
-                        <td><img th:src="${request.getPhoto()}" alt="OPRS" width="50px" height="35px"/></td>
+                        <td><img th:src="${request.getPhotoUrl()}" alt="OPRS" width="50px" height="35px"/></td>
                         <td th:text="${request.getFirstName()}"/>
                         <td th:text="${request.getLastName()}"/>
                         <td th:text="${request.getSocialSecurityNumber()}"/>
                         <td th:text="${request.getStatus()}"/>
                         <td th:text="${request.getCreateDate()}"/>
+                        <td>
+                        <form th:action="@{/history}" method="post" >
+                        <input type="hidden" name="requestId" th:value="${request.getId()}">
+                        <input type="submit" value="See history" class="btn">
+                        </form>
+                    </tr>
                     </tr>
                 </div>
 

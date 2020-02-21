@@ -1,7 +1,7 @@
 package com.example.oprs.controller;
 
 import com.example.oprs.exception.InValidInputException;
-import com.example.oprs.pojo.Officer;
+import com.example.oprs.pojo.User;
 import com.example.oprs.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,16 +25,16 @@ public class AdminController {
 
 
     @GetMapping("/addOfficer")
-    public String addOfficerGet(Officer officer, Model model) {
+    public String addOfficerGet(User officer, Model model) {
         model.addAttribute("officer", officer);
         return "admin/registerOfficer";
     }
 
     @PostMapping("/addOfficer")
-    public String addOfficer(Officer officer, Model model) {
+    public String addOfficer(User officer, Model model, String role) {
         try {
-            officer.validateInput();
-            userService.addAsAdmin(officer);
+            userService.validateInput(officer);
+            userService.addAsAdmin(officer, role);
             model.addAttribute("message", officer.getFirstName() + " successfully registered");
         } catch (InValidInputException inValidInputException) {
             model.addAttribute("officer", officer);

@@ -4,6 +4,15 @@ public class Search {
     private String name;
     private String token;
     private Long socialSecurityNumber;
+    private Status status;
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     public String getName() {
         return name;

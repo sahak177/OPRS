@@ -17,14 +17,19 @@ import java.nio.file.StandardCopyOption;
 @Service
 public class FileServiceImpl implements FileService {
 
-    @Value("src\\main\\resources\\static\\Img\\")
+    @Value("target\\classes\\static\\img\\")
     public String uploadDir;
+
+    @Value("src\\main\\resources\\static\\img\\")
+    public String uploadDirDuplicate;
 
     @Override
     public String uploadFile(MultipartFile file, String name) {
         try {
             Path copyLocation = Paths.get(uploadDir + name + ".png");
+            Path copyLocationDuplicate = Paths.get(uploadDirDuplicate + name + ".png");
             Files.copy(file.getInputStream(), copyLocation, StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(file.getInputStream(), copyLocationDuplicate, StandardCopyOption.REPLACE_EXISTING);
             return "/img/" + name + ".png";
         } catch (Exception e) {
             throw new FileStorageException("Could not store file " + file.getOriginalFilename() + ". Please try again!");

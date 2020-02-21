@@ -94,30 +94,15 @@
                                                th:value="${request.getLastName()}">
                                     </div>
                                     <div class="form-group">
-                                        <label for="gender">
-                                            <input type="radio"
-                                                   id="gender"
-                                                   name="gender"
-                                                   class="radio-menu-item"
-                                                   autofocus="autofocus"
-                                                   placeholder="gender"
-                                                   form="SendRequest"
-                                                   value="false">
-                                            female
-                                        </label>:
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="gender1">
-                                            <input type="radio"
-                                                   id="gender1"
-                                                   name="gender"
-                                                   class="radio-menu-item"
-                                                   autofocus="autofocus"
-                                                   placeholder="gender"
-                                                   form="SendRequest"
-                                                   value="true">
-                                            male
-                                        </label>:
+                                    <label for="gender">gender</label>:
+
+                                    <select name="gender" id = "gender" class="form-control" form="SendRequest">
+                                        <th:block th:if="${request.getGender()!=null}">
+                                        <option th:value="${request.getGender()}"><td th:text="${request.getGender()} ? 'mail' : 'female'" /></option>
+                                        </th:block>
+                                        <option value = "true">mail</option>
+                                        <option value = "false">female</option>
+                                    </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="DateOfBirth">birth Date</label>:
@@ -186,7 +171,6 @@
                                                name="fromWhom"
                                                class="form-control"
                                                placeholder="fromWhom"
-
                                                form="SendRequest"
                                                th:value="${request.getFromWhom()}">
                                     </div>
@@ -227,7 +211,7 @@
                                                accept="image/x-png,image/gif,image/jpeg"
                                                required="required"
                                                form="SendRequest"
-                                               th:value="${request.getPhoto()}">
+                                               th:value="${photo}">
                                     </div>
                                 </div>
                             </div>
@@ -237,15 +221,15 @@
                                 <div class="col-md-6 col-md-offset-3">
                                     <h1>information for cancel lost passport</h1>
                                     <div class="form-group">
-                                        <label for="oldPassportNumber">Lost passport number</label>:
+                                        <label for="LostPassportNumber">Lost passport number</label>:
                                         <input type="text"
-                                               id="lostPassportNumber"
-                                               name="oldPassportNumber"
+                                               id="LostPassportNumber"
+                                               name="lostPassportNumber"
                                                class="form-control"
                                                autofocus="autofocus"
-                                               placeholder="oldPassportNumber"
+                                               placeholder="LostPassportNumber"
                                                form="SendRequest"
-                                               th:value="${request.getOldPassportNumber()}">
+                                               th:value="${request.getLostPassportNumber()}">
                                     </div>
 
                                 </div>

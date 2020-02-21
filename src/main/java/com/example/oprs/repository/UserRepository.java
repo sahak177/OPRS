@@ -1,6 +1,5 @@
 package com.example.oprs.repository;
 
-import com.example.oprs.pojo.Officer;
 import com.example.oprs.pojo.User;
 
 
@@ -9,7 +8,7 @@ public interface UserRepository {
 
     boolean save(User user);
 
-    boolean saveFromAdmin(Officer officer);
+    boolean saveFromAdmin(User officer);
 
     boolean updatePassword(String encodedNewPassword, String currentUser);
 

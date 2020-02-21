@@ -50,14 +50,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .disable()
                 .authorizeRequests()
                 .antMatchers(
-                        "/",
                         "/js/**",
                         "/css/**",
                         "/img/**",
                         "/webjars/**").permitAll()
-                .antMatchers("/signup").permitAll()
+                .antMatchers("/*").permitAll()
                 .antMatchers("/admin/*").hasRole("ADMIN")
-                .antMatchers("/workPlace/*").hasAnyRole("ADMIN", "OFFICER", "OVIR_OFFICER")
+                .antMatchers("/passport/*").hasAnyRole("USER", "OFFICER")
+                .antMatchers("/change/*").hasAnyRole("VARD_OFFICER", "OFFICER")
+                .antMatchers("/vard/*").hasAnyRole("VARD_OFFICER")
+                .antMatchers("/workPlace/*").hasAnyRole("OFFICER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

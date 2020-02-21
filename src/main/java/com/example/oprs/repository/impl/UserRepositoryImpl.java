@@ -1,8 +1,8 @@
 package com.example.oprs.repository.impl;
 
 import com.example.oprs.mappers.RoleMapper;
-import com.example.oprs.pojo.Officer;
 import com.example.oprs.pojo.Role;
+import com.example.oprs.pojo.RoleType;
 import com.example.oprs.pojo.User;
 import com.example.oprs.repository.UserRepository;
 import org.springframework.context.annotation.PropertySource;
@@ -36,12 +36,14 @@ public class UserRepositoryImpl implements UserRepository {
         User user = jdbcTemplate.queryForObject(sf1,
                 new Object[]{username},
                 new BeanPropertyRowMapper<User>(User.class));
+
         String rol = "SELECT * FROM ROLE inner JOIN USER_ROLE ON ROLE.ID=USER_ROLE.ROLE_ID AND USER_ID=? ";
         List<Role> roles = jdbcTemplate.query(
                 rol,
                 new Object[]{user.getId()},
                 new RoleMapper());
         user.setRoles(roles);
+
         String tok = "SELECT * FROM Tokens where user_id=? ";
         List<String> tokens = jdbcTemplate.query(
                 tok,
@@ -55,17 +57,16 @@ public class UserRepositoryImpl implements UserRepository {
                 });
         user.setTokens(tokens);
 
-
         return user;
     }
 
     @Override
     public boolean save(User user) {
-        String defaultRole = properties.getProperty("default.Role");
+        String defaultRole = RoleType.ROLE_USER.name();
         String str = "insert into user(social_number,first_name,last_name,email,password) values (?, ?, ?, ?, ?)";
 
         String strRole = "insert into user_role values ((select id from user where email=?)," +
-                "( select id from role where role_name =?) );";
+                "( select id from role where role =?) );";
 
         jdbcTemplate.update(
                 str, user.getSocialSecurityNumber(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword());
@@ -75,23 +76,26 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public boolean saveFromAdmin(Officer officer) {
+    public boolean saveFromAdmin(User officer) {
 
         String str = "insert into user(social_number,first_name,last_name,email,password) values (?, ?, ?, ?, ?)";
 
         String strRole = "insert into user_role values ((select id from user where email=?)," +
-                "( select id from role where role_name =?) );";
+                "( select id from role where role =?) );";
 
         jdbcTemplate.update(
-                str, officer.getSocialNumber(), officer.getFirstName(), officer.getLastName(), officer.getEmail(), officer.getPassword());
-        jdbcTemplate.update(
-                strRole, officer.getEmail(), officer.getRole());
+                str, officer.getSocialSecurityNumber(), officer.getFirstName(), officer.getLastName(), officer.getEmail(), officer.getPassword());
+        for (Role role : officer.getRoles()) {
+            jdbcTemplate.update(
+                    strRole, officer.getEmail(), role.getRoleName());
+        }
+
         return true;
     }
 
     @Override
     public boolean updatePassword(String encodedNewPassword, String currentUser) {
-        String str = "UPDATE user SET password=?,isActive=true where email=? ";
+        String str = "UPDATE user SET password=? where email=? ";
         jdbcTemplate.update(
                 str, encodedNewPassword, currentUser);
         return true;

@@ -18,16 +18,18 @@ public class RequestInfo {
     private String phoneNumber;
     private String postCode;
     private String oldPassportNumber;
+    private String lostPassportNumber;
     private String fromWhom;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date givenDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date expireDate;
     private Purpose purpose;
-    private String photo;
+    private String photoUrl;
     private Status status;
     private String token;
     private Long userId;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createDate;
 
     public long getId() {
@@ -118,6 +120,14 @@ public class RequestInfo {
         this.postCode = postCode;
     }
 
+    public String getLostPassportNumber() {
+        return lostPassportNumber;
+    }
+
+    public void setLostPassportNumber(String lostPassportNumber) {
+        this.lostPassportNumber = lostPassportNumber;
+    }
+
     public String getOldPassportNumber() {
         return oldPassportNumber;
     }
@@ -158,12 +168,12 @@ public class RequestInfo {
         this.purpose = purpose;
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 
     public Status getStatus() {

@@ -7,7 +7,6 @@
 <body>
 <div layout:fragment="content" th:remove="tag">
     <div th:if="${requests!=null}">
-        <h3>all requests</h3>
         <div th:if="${requests.isEmpty()}">
             <div class="err" color="#FF0000">no available requests</div>
         </div>
@@ -16,76 +15,75 @@
                 <div class="row">
                     <div class="col-50">
                         <ul>
-                            <p>
+                            <td><img th:src="${request.getPhotoUrl()}" alt="OPRS" width="150px" height="125px"/></td>
+                            <input type="hidden" name="photoUrl" th:value="${request.getPhotoUrl()}" form="edit">
+
+                            <div class="form-group">
                                 <label for="id">id</label>:
-                                <input type="text"
-                                       id="id"
-                                       name="id"
-                                       class="form-control"
-                                       th:value="${request.getId()}"
-                                ></p>
-                            <p>
+                                <span id="id" th:text="${request.getId()}"/>
+                                <input type="hidden" name="id" th:value="${request.getId()}" form="edit">
+                            </div>
+                            <div class="form-group">
                                 <label for="firstName">firstName</label>:
                                 <input type="text"
                                        id="firstName"
                                        name="firstName"
                                        class="form-control"
                                        th:value="${request.getFirstName()}"
-                                ></p>
-                            <p>
+                                       form="edit">
+
+                            </div>
+                            <div class="form-group">
                                 <label for="lastName">lastName</label>:
                                 <input type="text"
                                        id="lastName"
                                        name="lastName"
                                        class="form-control"
                                        th:value="${request.getLastName()}"
-                                ></p>
-                            <!--                    <p>-->
-                            <!--                    <div class="form-group">-->
-                            <!--                    <label for="gender">gender</label>:-->
-                            <!--                    <input type="text"-->
-                            <!--                           id="gender"-->
-                            <!--                           name="gender"-->
-                            <!--                           th:value="${request.getGender()}"-->
-                            <!--                           class="form-control"></div></p>-->
-                            <!--                    <p>-->
-                            <p>
+                                       form="edit">
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">gender</label>:
 
+                                <select name="gender" id="gender" class="form-control" form="edit">
+                                    <th:block th:if="${request.getGender()!=null}">
+                                        <option th:value="${request.getGender()}">
+                                            <td th:text="${request.getGender()} ? 'mail' : 'female'"/>
+                                        </option>
+                                    </th:block>
+                                    <option value="true">mail</option>
+                                    <option value="false">female</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="DateOfBirth">DateOfBirth</label>:
                                 <input type="date"
                                        id="DateOfBirth"
                                        name="dateOfBirth"
                                        class="form-control"
                                        th:value="${request.getDateOfBirth()}"
-                                ></p>
-                            <p>
-                                <label for="id1">id</label>:
-                                <input type="id"
-                                       id="id1"
-                                       name="id"
-                                       class="form-control"
-                                       th:value="${request.getId()}"
-                                ></p>
-                            <!--                    <p><img th:src="${request.getPhoto()}" alt="OPRS" width="150px" height="100px"/></p>-->
+                                       form="edit">
+                            </div>
 
-                            <p>
+                            <div class="form-group">
                                 <label for="Country">Country</label>:
                                 <input type="text"
                                        id="Country"
                                        name="countryOfBirth"
                                        class="form-control"
                                        th:value="${request.getCountryOfBirth()}"
-                                ></p>
-                            <p>
-
+                                       form="edit">
+                            </div>
+                            <div class="form-group">
                                 <label for="Social">SocialSecurityNumber</label>:
                                 <input type="text"
                                        id="Social"
                                        name="socialSecurityNumber"
                                        class="form-control"
                                        th:value="${request.getSocialSecurityNumber()}"
-                                ></p>
-                            <p>
+                                       form="edit">
+                            </div>
+
                             <div class="form-group">
                                 <label for="address">address</label>:
                                 <input type="text"
@@ -93,101 +91,128 @@
                                        name="address"
                                        class="form-control"
                                        th:value="${request.getAddress()}"
-                                ></div>
-                            </p>
+                                       form="edit">
+                            </div>
 
-                            <!--                    <p>-->
-                            <p>
-
+                            <div class="form-group">
                                 <label for="email">email</label>:
                                 <input type="text"
                                        id="email"
                                        name="email"
                                        class="form-control"
                                        th:value="${request.getEmail()}"
-                                ></p>
-                            <p>
-
+                                       form="edit">
+                            </div>
+                            <div class="form-group">
                                 <label for="phoneNumber">phoneNumber</label>:
                                 <input type="text"
                                        id="phoneNumber"
                                        name="phoneNumber"
                                        class="form-control"
                                        th:value="${request.getPhoneNumber()}"
-                                ></p>
-                            <p>
-
+                                       form="edit">
+                            </div>
+                            <div class="form-group">
                                 <label for="postCode">postCode</label>:
                                 <input type="text"
                                        id="postCode"
                                        name="postCode"
                                        class="form-control"
                                        th:value="${request.getPostCode()}"
-                                ></p>
-                            <p>
+                                       form="edit">
+                            </div>
+                            <th:block th:if="${request.getPurpose().equals('EXPIRED')}">
+                                <div class="form-group">
+                                    <label for="OldPassportNumber">OldPassportNumber</label>:
+                                    <input type="text"
+                                           id="OldPassportNumber"
+                                           name="oldPassportNumber"
+                                           class="form-control"
+                                           th:value="${request.getOldPassportNumber()}"
+                                           form="edit">
+                                </div>
+                                <div class="form-group">
+                                    <label for="fromWhom">fromWhom</label>:
+                                    <input type="text"
+                                           id="fromWhom"
+                                           name="fromWhom"
+                                           class="form-control"
+                                           th:value="${request.getFromWhom()}"
+                                           form="edit">
+                                </div>
 
-                                <label for="OldPassportNumber">OldPassportNumber</label>:
-                                <input type="text"
-                                       id="OldPassportNumber"
-                                       name="oldPassportNumber"
-                                       class="form-control"
-                                       th:value="${request.getOldPassportNumber()}"
-                                ></p>
+                                <div class="form-group">
+                                    <label for="givenDate">givenDate</label>:
+                                    <input type="text"
+                                           id="givenDate"
+                                           name="givenDate"
+                                           class="form-control"
+                                           th:value="${request.getGivenDate()}"
+                                           form="edit">
+                                </div>
 
-                            <p>
+                                <div class="form-group">
+                                    <label for="expireDate">expireDate</label>:
+                                    <input type="text"
+                                           id="expireDate"
+                                           name="expireDate"
+                                           class="form-control"
+                                           th:value="${request.getExpireDate()}"
+                                           form="edit">
+                                </div>
 
-                                <label for="fromWhom">fromWhom</label>:
-                                <input type="text"
-                                       id="fromWhom"
-                                       name="fromWhom"
-                                       class="form-control"
-                                th:value="${request.getFromWhom()}"
-                                ></p>
-                            <p>
+                            </th:block>
+                            <th:block th:if="${request.getPurpose().equals('LOST_OR_DAMAGED')}">
+                                <div class="form-group">
+                                    <label for="LostPassportNumber">LostPassportNumber</label>:
+                                    <input type="text"
+                                           id="LostPassportNumber"
+                                           name="lostPassportNumber"
+                                           class="form-control"
+                                           th:value="${request.getLostPassportNumber()}"
+                                           form="edit">
+                                </div>
+                            </th:block>
 
-                                <label for="givenDate">givenDate</label>:
-                                <input type="text"
-                                       id="givenDate"
-                                       name="givenDate"
-                                       class="form-control"
-                                       th:value="${request.getGivenDate()}"
-                                ></p>
-                            <p>
+                            <div class="form-group">
+                                <label>Purpose</label>:
+                                <span th:text="${request.getPurpose()}"/>
+                                <input type="hidden" name="purpose" th:value="${request.getPurpose()}" form="edit">
+                            </div>
 
-                                <label for="expireDate">expireDate</label>:
-                                <input type="text"
-                                       id="expireDate"
-                                       name="expireDate"
-                                       class="form-control"
-                                       th:value="${request.getExpireDate()}"
-                                >
-                            </p>
-                            <p>
+                            <div class="form-group">
+                                <label>Status</label>:
+                                <span th:text="${request.getStatus()}"/>
+                                <input type="hidden" name="status" th:value="${request.getStatus()}" form="edit">
+                            </div>
 
-                                <label for="Purpose">Purpose</label>:
-                                <input type="text"
-                                       id="Purpose"
-                                       name="purpose"
-                                       class="form-control"
-                                       th:value="${request.getPurpose()}"
-                                ></p>
-                            <label>Status</label>:
-                            <p><span th:text="${request.getStatus()}"/></p>
-                            <label>Token</label>:
-                            <p><span th:text="${request.getToken()}"/></p>
-
-
+                            <div class="form-group">
+                                <label>Token</label>:
+                                <span th:text="${request.getToken()}"/>
+                                <input type="hidden" name="token" th:value="${request.getToken()}" form="edit">
+                            </div>
+                            <input type="hidden" name="userId" th:value="${request.getUserId()}" form="edit">
+                            <input type="hidden" name="createDate" th:value="${request.getCreateDate()}" form="edit">
                         </ul>
                     </div>
                     <div class="col-50">
-                        <!--                    <form th:action="@{/workPlace/getRequests}" method="post">-->
-                        <label for="submit"></label>
-                        <input type="submit" id="submit" value="edit" class="btn">
-                        <label for="submit1"></label>
-                        <input type="submit" id="submit1" value="mark as validated" class="btn">
-                        <label for="submit2"></label>
-                        <input type="submit" id="submit2" value="mark as declined" class="btn">
-                        <!--                    </form>-->
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-6 col-sm-offset-3">
+                                    <form th:action="@{/workPlace/editRequest}" method="post" id="edit">
+                                        <input type="submit" id="submit" value="update" class="btn">
+                                    </form>
+                                    <form th:action="@{/workPlace/editStatus}" method="post">
+                                        <input type="hidden" name="id" th:value="${request.getId()}">
+                                        <input type="submit" th:value="${T(com.example.oprs.pojo.Status).VALIDATED}"
+                                               name="status" class="btn">
+                                        <input type="submit" th:value="${T(com.example.oprs.pojo.Status).DECLINED}"
+                                               name="status" class="btn">
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

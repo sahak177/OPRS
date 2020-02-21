@@ -12,7 +12,7 @@
     <a href="/purpose" th:href="@{/purpose}">
         <button class="btn">Create New Request</button>
     </a>
-    <form th:action="@{/workPlace/getRequests}" method="post">
+    <form th:action="@{/vard/getRequests}" method="post">
         <div class="row">
 
             <div class="col-50">
@@ -45,11 +45,11 @@
                 <div class="form-group">
                     <label for="status">status</label>:
                     <select name="status" id="status" class="form-control">
-                        <option th:value="${T(com.example.oprs.pojo.Status).SUBMITTED}" th:text="${T(com.example.oprs.pojo.Status).SUBMITTED}"></option>
-                        <option th:value="${T(com.example.oprs.pojo.Status).DECLINED}" th:text="${T(com.example.oprs.pojo.Status).DECLINED}"></option>
                         <option th:value="${T(com.example.oprs.pojo.Status).VALIDATED}" th:text="${T(com.example.oprs.pojo.Status).VALIDATED}"></option>
+                        <option th:value="${T(com.example.oprs.pojo.Status).QUERIED}" th:text="${T(com.example.oprs.pojo.Status).QUERIED}"></option>
+                        <option th:value="${T(com.example.oprs.pojo.Status).ISSUED}" th:text="${T(com.example.oprs.pojo.Status).ISSUED}"></option>
+                        <option th:value="${T(com.example.oprs.pojo.Status).DELIVERED}" th:text="${T(com.example.oprs.pojo.Status).DELIVERED}"></option>
                         <option th:value="${T(com.example.oprs.pojo.Status).REJECTED}" th:text="${T(com.example.oprs.pojo.Status).REJECTED}"></option>
-
                     </select>
                 </div>
                 <input type="submit" id="submit" value="Search" class="btn" style="float: right;">
@@ -85,7 +85,7 @@
                         <td th:text="${request.getSocialSecurityNumber()}"/>
                         <td th:text="${request.getStatus()}"/>
                         <td>
-                            <form th:action="@{/workPlace/RequestsDetail}" method="post">
+                            <form th:action="@{/vard/requestsDetail}" method="post">
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">

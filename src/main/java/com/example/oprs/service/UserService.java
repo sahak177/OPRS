@@ -1,8 +1,9 @@
 package com.example.oprs.service;
 
 import com.example.oprs.exception.InValidInputException;
-import com.example.oprs.pojo.Officer;
 import com.example.oprs.pojo.User;
+
+import java.io.IOException;
 
 public interface UserService {
 
@@ -10,11 +11,13 @@ public interface UserService {
 
     boolean add(User user);
 
-    boolean addAsAdmin(Officer officer);
+    boolean addAsAdmin(User officer,String officerRole);
 
     boolean updatePassword(String encodedNewPassword, String currentUser);
 
     void validateInput(User user) throws InValidInputException;
 
     boolean addToken(Long userId, String token);
+
+
 }

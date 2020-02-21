@@ -25,15 +25,16 @@ public class RequestMapper implements RowMapper<RequestInfo> {
         req.setPostCode(rs.getString("post_code"));
         req.setPhoneNumber(rs.getString("phone_number"));
         req.setOldPassportNumber(rs.getString("old_passport_number"));
+        req.setLostPassportNumber(rs.getString("lost_passport_number"));
         req.setGivenDate(rs.getDate("givenDate"));
         req.setExpireDate(rs.getDate("expireDate"));
         req.setFromWhom(rs.getString("fromWhom"));
         req.setPurpose(Purpose.valueOf(rs.getString("purpose")));
-        req.setPhoto(rs.getString("photo"));
+        req.setPhotoUrl(rs.getString("photo"));
         req.setStatus(Status.valueOf(rs.getString("status")));
         req.setToken(rs.getString("token"));
         req.setUserId(rs.getLong("user_id"));
-        req.setCreateDate(rs.getDate("creatTime"));
+        req.setCreateDate(rs.getDate("createTime"));
         return req;
     }
 }

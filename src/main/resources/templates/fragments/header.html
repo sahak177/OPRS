@@ -27,18 +27,18 @@
                         <a href="/work/1" th:href="@{/admin/workPlace}">Admin place</a>
                     </li>
 
-                    <li th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')') ||
-                    #authorization.expression('hasAuthority(''ROLE_OFFICER'')')||
-                    #authorization.expression('hasAuthority(''ROLE_OVIR_OFFICER'')')}">
+                    <li th:if="${ #authorization.expression('hasAuthority(''ROLE_OFFICER'')')}">
                         <a href="/workPlace/work" th:href="@{/workPlace/work}">working place</a>
                     </li>
+                    <li th:if="${#authorization.expression('hasAuthority(''ROLE_VARD_OFFICER'')')}">
+                        <a href="/workPlace/work" th:href="@{/vard/work}">working place for vard</a>
+                    </li>
 
-                    <li th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')') ||
-                    #authorization.expression('hasAuthority(''ROLE_OFFICER'')')||
-                    #authorization.expression('hasAuthority(''ROLE_OVIR_OFFICER'')')}">
+                    <li th:if="${#authorization.expression('hasAuthority(''ROLE_OFFICER'')')||
+                    #authorization.expression('hasAuthority(''ROLE_VARD_OFFICER'')')}">
 
 
-                        <a href="/changePassword" th:href="@{/workPlace/changePassword}">change Password</a>
+                        <a href="/changePassword" th:href="@{/change/changePassword}">change Password</a>
                     </li>
 
 
