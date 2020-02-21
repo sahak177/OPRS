@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout.html}">
+<head>
+    <title>Oprs.com</title>
+
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+
+    <a href="/purpose" th:href="@{/purpose}">
+        <button class="btn">Create New Request</button>
+    </a>
+    <form th:action="@{/vard/getRequests}" method="post">
+        <div class="row">
+
+            <div class="col-50">
+                <div class="form-group">
+                    <label for="socialSecurityNumber">SSN</label>:
+                    <input type="number"
+                           id="socialSecurityNumber"
+                           name="socialSecurityNumber"
+                           class="form-control"
+                           autofocus="autofocus">
+                </div>
+                <div class="form-group">
+                    <label for="name">name</label>:
+                    <input type="text"
+                           id="name"
+                           name="name"
+                           class="form-control"
+                           autofocus="autofocus">
+                </div>
+            </div>
+            <div class="col-50">
+                <div class="form-group">
+                    <label for="token">token</label>:
+                    <input type="text"
+                           id="token"
+                           name="token"
+                           class="form-control"
+                           autofocus="autofocus">
+                </div>
+                <div class="form-group">
+                    <label for="status">status</label>:
+                    <select name="status" id="status" class="form-control">
+                        <option th:value="${T(com.example.oprs.pojo.Status).VALIDATED}" th:text="${T(com.example.oprs.pojo.Status).VALIDATED}"></option>
+                        <option th:value="${T(com.example.oprs.pojo.Status).QUERIED}" th:text="${T(com.example.oprs.pojo.Status).QUERIED}"></option>
+                        <option th:value="${T(com.example.oprs.pojo.Status).ISSUED}" th:text="${T(com.example.oprs.pojo.Status).ISSUED}"></option>
+                        <option th:value="${T(com.example.oprs.pojo.Status).DELIVERED}" th:text="${T(com.example.oprs.pojo.Status).DELIVERED}"></option>
+                        <option th:value="${T(com.example.oprs.pojo.Status).REJECTED}" th:text="${T(com.example.oprs.pojo.Status).REJECTED}"></option>
+                    </select>
+                </div>
+                <input type="submit" id="submit" value="Search" class="btn" style="float: right;">
+
+            </div>
+        </div>
+
+    </form>
+    <div th:if="${requests!=null}">
+        <h3>all requests</h3>
+        <div th:if="${requests.isEmpty()}">
+            <div class="err" color="#FF0000">no available requests</div>
+        </div>
+        <div th:if="${!requests.isEmpty()}">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">photo</th>
+                    <th scope="col">FName</th>
+                    <th scope="col">LName</th>
+                    <th scope="col">social Number</th>
+                    <th scope="col">status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <div th:each="request: ${requests}">
+                    <tr>
+                        <td th:text="${request.getId()}"/>
+                        <td><img th:src="${request.getPhotoUrl()}" alt="OPRS" width="50px" height="35px"/></td>
+                        <td th:text="${request.getFirstName()}"/>
+                        <td th:text="${request.getLastName()}"/>
+                        <td th:text="${request.getSocialSecurityNumber()}"/>
+                        <td th:text="${request.getStatus()}"/>
+                        <td>
+                            <form th:action="@{/vard/requestsDetail}" method="post">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-sm-offset-3">
+                                            <input type="hidden" name="id" th:value="${request.getId()}">
+                                            <input type="submit" value="Details" class="btn">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                </div>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

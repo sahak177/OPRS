@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout.html}">
+<head>
+    <title>Oprs.com</title>
+</head>
+<body>
+<div layout:fragment="content" class="bg-light border-right col-md-10">
+    <div th:if="${histories==null}">
+        <div class="err" color="#FF0000"> <td th:text="${message}"/></div>
+    </div>
+    <div th:if="${histories!=null}">
+        <h3>all history</h3>
+        <div th:if="${histories.isEmpty()}">
+            <div class="err" color="#FF0000">no available history</div>
+        </div>
+        <div th:if="${!histories.isEmpty()}">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">event</th>
+                    <th scope="col">creat time</th>
+                </tr>
+                </thead>
+                <tbody>
+                <div th:each="history: ${histories}">
+                    <tr>
+                        <td th:text="${history.getEvent()}"/>
+                        <td th:text="${history.getCreateDate()}"/>
+                    </tr>
+                </div>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

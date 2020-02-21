@@ -1,10 +1,15 @@
-package com.example.oprs.model;
+package com.example.oprs.pojo;
 
 public class Role {
+
     private Long id;
     private String roleName;
 
     public Role() {
+    }
+
+    public Role(String roleName) {
+        this.roleName = roleName;
     }
 
     public Long getId() {

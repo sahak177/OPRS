@@ -1,5 +1,17 @@
 h1 {
-    color: #78ab46;
+    color: #159A02;
+}
+p{
+    color: #159A02;
+}
+a{
+    color: #099EF9 ;
+}
+h2{
+    color: #159A02;
+}
+label{
+    color: #000101;
 }
 
 footer {
@@ -13,7 +25,54 @@ footer {
 footer p {
     padding: 15px;
 }
-img{
-    width:90px;
-    height:75px;
+
+.row {
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    -ms-flex-wrap: wrap; /* IE10 */
+    flex-wrap: wrap;
+    margin: 0 -16px;
+}
+.background{
+    background-color: #CAFBF8 ;
+}
+.err{
+    color:red;
+}
+
+.col-50 {
+    -ms-flex: 50%; /* IE10 */
+    flex: 50%;
+}
+.blur-image {
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.col-50{
+    padding: 0 16px;
+}
+.styled-select.slate {
+    background: url(http://i62.tinypic.com/2e3ybe1.jpg) no-repeat right center;
+    height: 34px;
+    width: 240px;
+}
+.btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    width: 200px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.btn:hover {
+    background-color: #45a049;
 }

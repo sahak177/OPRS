@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Oprs.com</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <h1><span th:text="${message}"></span></h1>
+    <h1>Hello <span th:text="${user.getFirstName()}"></span></h1>
+    <h2>this is your account</h2>
+    <div class="row">
+        <div class="col-50">
+            <a href="/request" th:href="@{/purpose}">
+                <input type="submit" value="Create New Request" class="btn">
+            </a>
+        </div>
+        <div class="col-50">
+            <div th:each="token: ${user.getTokens()}">
+                <form th:action="@{/track}" method="post">
+                    <input type="hidden" name="token" th:value="${token}">
+                    <input type="submit" id="submit" th:value="${'track request  '+token}" class="btn">
+
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

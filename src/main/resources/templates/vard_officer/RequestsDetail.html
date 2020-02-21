@@ -1,0 +1,149 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout.html}">
+<head>
+    <title>Oprs.com</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div th:if="${requests!=null}">
+        <div th:if="${requests.isEmpty()}">
+            <div class="err" color="#FF0000">no available requests</div>
+        </div>
+        <div th:if="${!requests.isEmpty()}">
+            <div th:each="request: ${requests}">
+                <div class="row">
+                    <div class="col-50">
+                        <ul>
+                            <td><img th:src="${request.getPhotoUrl()}" alt="OPRS" width="150px" height="125px"/></td>
+
+                            <div class="form-group">
+                                <li><label for="id">id</label>:</li>
+                                <li><span id="id" th:text="${request.getId()}" class="background"/></li>
+
+                            </div>
+
+                            <div class="form-group">
+                                <li><label>First Name</label>:</li>
+                                <li><span th:text="${request.getFirstName()}" class="background"/></li>
+                            </div>
+
+                            <div class="form-group">
+                                <li><label>Last Name</label>:</li>
+                                <li><span th:text="${request.getLastName()}" class="background"/></li>
+                            </div>
+
+                            <th:block th:if="${request.getGender()!=null}">
+                                <div class="form-group">
+                                    <li><label>Purpose</label>:</li>
+                                    <li><span th:text="${request.getGender()} ? 'mail' : 'female'" class="background"/>
+                                    </li>
+                                </div>
+                            </th:block>
+
+
+                            <div class="form-group">
+                                <li><label>Date Of Birth</label>:</li>
+                                <li><span th:text="${request.getDateOfBirth()}" class="background"/></li>
+                            </div>
+
+                            <div class="form-group">
+                                <li><label>Country Of Birth</label>:</li>
+                                <li><span th:text="${request.getCountryOfBirth()}" class="background"/></li>
+                            </div>
+
+                            <div class="form-group">
+                                <li><label>Social Security Number</label>:</li>
+                                <li><span th:text="${request.getSocialSecurityNumber()}" class="background"/></li>
+                            </div>
+
+                            <div class="form-group">
+                                <li><label>Address</label>:</li>
+                                <li><span th:text="${request.getAddress()}" class="background"/></li>
+                            </div>
+
+                            <div class="form-group">
+                                <li><label>Email</label>:</li>
+                                <li><span th:text="${request.getEmail()}" class="background"/></li>
+                            </div>
+
+                            <div class="form-group">
+                                <li><label>Phone Number</label>:</li>
+                                <li><span th:text="${request.getPhoneNumber()}" class="background"/></li>
+                            </div>
+
+                            <div class="form-group">
+                                <li><label>Post Code</label>:</li>
+                                <li><span th:text="${request.getPostCode()}" class="background"/></li>
+                            </div>
+                            <th:block th:if="${request.getPurpose().equals('EXPIRED')}">
+                                <div class="form-group">
+                                    <li><label>Old Passport Number</label>:</li>
+                                    <li><span th:text="${request.getOldPassportNumber()}" class="background"/></li>
+                                </div>
+
+                                <div class="form-group">
+                                    <li><label>From Whom</label>:</li>
+                                    <li><span th:text="${request.getFromWhom()}" class="background"/></li>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Given Date</label>:</li>
+                                    <span th:text="${request.getGivenDate()}" class="background"/></li>
+                                </div>
+
+                                <div class="form-group">
+                                    <li><label>Expire Date</label>:</li>
+                                    <li><span th:text="${request.getExpireDate()}" class="background"/></li>
+                                </div>
+
+                            </th:block>
+                            <th:block th:if="${request.getPurpose().equals('LOST_OR_DAMAGED')}">
+                                <div class="form-group">
+                                    <li><label>Lost Passport Number</label>:</li>
+                                    <li><span th:text="${request.getLostPassportNumber()}" class="background"/></li>
+                                </div>
+                            </th:block>
+
+                            <div class="form-group">
+                                <li><label>Purpose</label>:</li>
+                                <li><span th:text="${request.getPurpose()}" class="background"/></li>
+                            </div>
+
+                            <div class="form-group">
+                                <li><label>Status</label>:</li>
+                                <li><span th:text="${request.getStatus()}" class="background"/></li>
+                            </div>
+
+                            <div class="form-group">
+                                <li><label>Token</label>:</li>
+                                <li><span th:text="${request.getToken()}" class="background"/></li>
+                            </div>
+
+                        </ul>
+                    </div>
+                    <div class="col-50">
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-6 col-sm-offset-3">
+                                    <form th:action="@{/vard/updateStatus}" method="post">
+                                        <input type="hidden" name="id" th:value="${request.getId()}">
+                                        <input type="submit" th:value="${T(com.example.oprs.pojo.Status).REJECTED}"
+                                               name="status" class="btn">
+                                        <input type="submit" th:value="${T(com.example.oprs.pojo.Status).QUERIED}"
+                                               name="status" class="btn">
+                                        <input type="submit" th:value="${T(com.example.oprs.pojo.Status).ISSUED}"
+                                               name="status" class="btn">
+                                        <input type="submit" th:value="${T(com.example.oprs.pojo.Status).DELIVERED}"
+                                               name="status" class="btn">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>

@@ -1,7 +1,7 @@
 package com.example.oprs.security;
 
 
-import com.example.oprs.model.User;
+import com.example.oprs.pojo.User;
 import com.example.oprs.service.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

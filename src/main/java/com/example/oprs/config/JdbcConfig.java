@@ -23,12 +23,12 @@ public class JdbcConfig {
     private String driver;
 
     @Bean
-    public JdbcTemplate getJdbcTemplate(){
+    public JdbcTemplate getJdbcTemplate() {
         return new JdbcTemplate(getDataSource());
     }
 
     @Bean
-    public DataSource getDataSource(){
+    public DataSource getDataSource() {
         DataSourceBuilder dataSource = DataSourceBuilder.create();
         dataSource.url(url);
         dataSource.username(username);
