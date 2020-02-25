@@ -1,11 +1,11 @@
 package com.example.oprs.service.impl;
 
 import com.example.oprs.exception.InValidInputException;
-import com.example.oprs.pojo.RequestInfo;
+import com.example.oprs.pojo.ApplicationInfo;
 import com.example.oprs.pojo.Search;
 import com.example.oprs.pojo.Status;
 import com.example.oprs.repository.RequestRepository;
-import com.example.oprs.service.RequestService;
+import com.example.oprs.service.ApplicationService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,27 +15,27 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
-public class RequestServiceImpl implements RequestService {
+public class ApplicationServiceImpl implements ApplicationService {
     private final RequestRepository requestRepository;
 
-    public RequestServiceImpl(RequestRepository requestRepository) {
+    public ApplicationServiceImpl(RequestRepository requestRepository) {
         this.requestRepository = requestRepository;
     }
 
     @Override
-    public boolean doRequest(RequestInfo requestInfo, String email) {
-        requestInfo.setToken(UUID.randomUUID().toString());
-        return requestRepository.addRequest(requestInfo, email);
+    public boolean doRequest(ApplicationInfo applicationInfo, String email) {
+        applicationInfo.setToken(UUID.randomUUID().toString());
+        return requestRepository.addRequest(applicationInfo, email);
     }
 
     @Override
-    public List<RequestInfo> getAll(String status) {
+    public List<ApplicationInfo> getAll(String status) {
 
         return requestRepository.getRequestByStatus(status);
     }
 
     @Override
-    public void validateRequestInfo(RequestInfo req, MultipartFile multiPhoto) throws InValidInputException {
+    public void validateRequestInfo(ApplicationInfo req, MultipartFile multiPhoto) throws InValidInputException {
 
         if (req.getAddress() == null) {
             throw new InValidInputException("invalid address");
@@ -126,7 +126,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public List<RequestInfo> search(Search search) {
+    public List<ApplicationInfo> search(Search search) {
         if (search.getSocialSecurityNumber() != null) {
             return requestRepository.getRequestBySSN(search.getSocialSecurityNumber());
         } else if (search.getToken() != null && search.getToken().length() > 0) {
@@ -138,12 +138,12 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public List<RequestInfo> getRequestByToken(String token) {
+    public List<ApplicationInfo> getRequestByToken(String token) {
         return requestRepository.getRequestByToken(token);
     }
 
     @Override
-    public List<RequestInfo> getRequestById(Long id) {
+    public List<ApplicationInfo> getRequestById(Long id) {
         return requestRepository.getRequestById(id);
     }
 
@@ -153,8 +153,8 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public void updateRequest(RequestInfo requestInfo) {
-        requestRepository.updateRequest(requestInfo);
+    public void updateRequest(ApplicationInfo applicationInfo) {
+        requestRepository.updateRequest(applicationInfo);
     }
 
 }

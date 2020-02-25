@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByEmail(String username) {
+
         return userRepository.getUserByEmail(username);
     }
 
@@ -63,38 +64,6 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    public void validateInput(User user) throws InValidInputException {
-
-        if (user.getPassword().length() < 8 || user.getPassword().length() > 16) {
-            throw new InValidInputException("invalid password");
-        }
-
-        String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
-        Pattern patternEmail = Pattern.compile(regex);
-        Matcher matcherEmail = patternEmail.matcher(user.getEmail());
-        if (!matcherEmail.matches()) {
-            throw new InValidInputException("invalid email");
-        }
-        String regexName = "[A-Z][a-z]*";
-        Pattern patternName = Pattern.compile(regexName);
-        Matcher matcherFName = patternName.matcher(user.getFirstName());
-
-        if (!matcherFName.matches() || user.getFirstName().length() < 2 || user.getFirstName().length() > 20) {
-            throw new InValidInputException("invalid First Name");
-        }
-
-        Matcher matcherLName = patternName.matcher(user.getLastName());
-        if (!matcherLName.matches() || user.getLastName().length() < 2 || user.getLastName().length() > 20) {
-            throw new InValidInputException("invalid Last Name");
-        }
-
-        Pattern patternNumber = Pattern.compile("\\d{9}");
-        Matcher matcherNumber = patternNumber.matcher(user.getSocialSecurityNumber());
-
-        if (!matcherNumber.matches()) {
-            throw new InValidInputException("invalid Social Number");
-        }
-    }
 
     @Override
     public boolean addToken(Long userId, String token) {

@@ -1,19 +1,20 @@
 package com.example.oprs.controller;
 
-import com.example.oprs.exception.InValidInputException;
 import com.example.oprs.pojo.Purpose;
-import com.example.oprs.pojo.RequestInfo;
+import com.example.oprs.pojo.ApplicationInfo;
 import com.example.oprs.service.FileService;
-import com.example.oprs.service.RequestService;
+import com.example.oprs.service.ApplicationService;
 import com.example.oprs.util.UniqueNameGenerator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
@@ -21,43 +22,40 @@ import java.security.Principal;
 public class PassportRequestController {
 
     private final FileService fileService;
-    private final RequestService requestService;
+    private final ApplicationService applicationService;
 
-    public PassportRequestController(FileService fileService, RequestService requestService) {
+    public PassportRequestController(FileService fileService, ApplicationService applicationService) {
         this.fileService = fileService;
-        this.requestService = requestService;
+        this.applicationService = applicationService;
     }
 
     @PostMapping("/step")
-    public Object step(Model model, RequestInfo requestInfo, String purpose) {
-        if(Purpose.valueOf(purpose)==null){
+    public Object step(ApplicationInfo applicationInfo, String purpose, Model model) {
+        if (Purpose.valueOf(purpose) == null) {
             return new RedirectView("account/purpose");
         }
-        requestInfo.setPurpose(Purpose.valueOf(purpose));
-        model.addAttribute("request", requestInfo);
+        applicationInfo.setPurpose(Purpose.valueOf(purpose));
         return "passport/NewPassport";
     }
 
 
     @PostMapping("/step1")
-    public Object step1(HttpServletRequest request, Model model, RequestInfo requestInfo, MultipartFile multiPhoto) {
-
-        try {
-            requestService.validateRequestInfo(requestInfo, multiPhoto);
+    public Object step1(@Valid ApplicationInfo applicationInfo, Errors errors, MultipartFile multiPhoto, HttpServletRequest request, Model model) {
+        if (errors.hasErrors()) {
+            model.addAttribute("applicationInfo", applicationInfo);
+            model.addAttribute("photo", multiPhoto);
+            model.addAttribute("message", "something went Wrong   ");
+            return "passport/NewPassport";
+        } else {
             Principal principal = request.getUserPrincipal();
             String name = UniqueNameGenerator.generateName("photo");
             String photoName = fileService.uploadFile(multiPhoto, name);
-            requestInfo.setPhotoUrl(photoName);
-            requestService.doRequest(requestInfo, principal.getName());
+            applicationInfo.setPhotoUrl(photoName);
+            applicationService.doRequest(applicationInfo, principal.getName());
             return "passport/request5";
-     }
-        catch (InValidInputException e) {
-            model.addAttribute("request", requestInfo);
-            model.addAttribute("photo", multiPhoto);
-            model.addAttribute("message", "something vent Wrong   "+e.getMessage());
-            return "passport/NewPassport";
-//            return new RedirectView("/passport/step");
-   }
+
+        }
+
 
     }
 

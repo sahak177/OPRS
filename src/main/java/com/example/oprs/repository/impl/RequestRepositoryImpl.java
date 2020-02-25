@@ -1,8 +1,8 @@
 package com.example.oprs.repository.impl;
 
 import com.example.oprs.mappers.RequestMapper;
+import com.example.oprs.pojo.ApplicationInfo;
 import com.example.oprs.pojo.Event;
-import com.example.oprs.pojo.RequestInfo;
 import com.example.oprs.pojo.Status;
 import com.example.oprs.pojo.User;
 import com.example.oprs.repository.RequestRepository;
@@ -27,7 +27,7 @@ public class RequestRepositoryImpl implements RequestRepository {
 
 
     @Override
-    public boolean addRequest(RequestInfo req, String userEmail) {
+    public boolean addRequest(ApplicationInfo req, String userEmail) {
         Status defaultStatus = Status.SUBMITTED;
         User user = userService.getUserByEmail(userEmail);
         userService.addToken(user.getId(), req.getToken());
@@ -41,19 +41,19 @@ public class RequestRepositoryImpl implements RequestRepository {
                 req.getEmail(), req.getAddress(), req.getOldPassportNumber(), req.getLostPassportNumber(), req.getFromWhom(), req.getGivenDate()
                 , req.getExpireDate(), req.getPhotoUrl(), req.getPurpose().name(), req.getToken(), defaultStatus.name()
                 , user.getId());
-        List<RequestInfo> requests = getRequestByToken(req.getToken());
+        List<ApplicationInfo> requests = getRequestByToken(req.getToken());
         if (!requests.isEmpty()) {
-            RequestInfo requestInfo = requests.get(0);
-            historyService.createHistory(Event.valueOf(defaultStatus.name()), requestInfo.getId());
+            ApplicationInfo applicationInfo = requests.get(0);
+            historyService.createHistory(Event.valueOf(defaultStatus.name()), applicationInfo.getId());
         }
         return true;
     }
 
 
     @Override
-    public List<RequestInfo> getRequestByToken(String token) {
+    public List<ApplicationInfo> getRequestByToken(String token) {
         String bigQuery = "SELECT * FROM request_info where token=? ";
-        List<RequestInfo> requests = jdbcTemplate.query(
+        List<ApplicationInfo> requests = jdbcTemplate.query(
                 bigQuery,
                 new Object[]{token},
                 new RequestMapper());
@@ -61,9 +61,9 @@ public class RequestRepositoryImpl implements RequestRepository {
     }
 
     @Override
-    public List<RequestInfo> getRequestById(Long id) {
+    public List<ApplicationInfo> getRequestById(Long id) {
         String bigQuery = "SELECT * FROM request_info where id=?";
-        List<RequestInfo> requests = jdbcTemplate.query(
+        List<ApplicationInfo> requests = jdbcTemplate.query(
                 bigQuery,
                 new Object[]{id},
                 new RequestMapper());
@@ -72,10 +72,10 @@ public class RequestRepositoryImpl implements RequestRepository {
     }
 
     @Override
-    public List<RequestInfo> getRequestByStatus(String status) {
+    public List<ApplicationInfo> getRequestByStatus(String status) {
 
         String bigQuery = "SELECT * FROM request_info where status=? order by createTime";
-        List<RequestInfo> requests = jdbcTemplate.query(
+        List<ApplicationInfo> requests = jdbcTemplate.query(
                 bigQuery,
                 new Object[]{status},
                 new RequestMapper());
@@ -85,10 +85,10 @@ public class RequestRepositoryImpl implements RequestRepository {
 
 
     @Override
-    public List<RequestInfo> getRequestBySSN(Long socialSecurityNumber) {
+    public List<ApplicationInfo> getRequestBySSN(Long socialSecurityNumber) {
 
         String bigQuery = "SELECT * FROM request_info where social_number=?";
-        List<RequestInfo> requests = jdbcTemplate.query(
+        List<ApplicationInfo> requests = jdbcTemplate.query(
                 bigQuery,
                 new Object[]{socialSecurityNumber},
                 new RequestMapper());
@@ -97,10 +97,10 @@ public class RequestRepositoryImpl implements RequestRepository {
     }
 
     @Override
-    public List<RequestInfo> getRequestByName(String name) {
+    public List<ApplicationInfo> getRequestByName(String name) {
 
         String bigQuery = "SELECT * FROM request_info where first_name=? order by createTime";
-        List<RequestInfo> requests = jdbcTemplate.query(
+        List<ApplicationInfo> requests = jdbcTemplate.query(
                 bigQuery,
                 new Object[]{name},
                 new RequestMapper());
@@ -118,7 +118,7 @@ public class RequestRepositoryImpl implements RequestRepository {
     }
 
     @Override
-    public void updateRequest(RequestInfo req) {
+    public void updateRequest(ApplicationInfo req) {
 
         String str = "update request_Info SET social_number=?,first_name=?,last_name=?,gender=?,birthDate=?," +
                 "birthCountry=?,phone_number=?,post_code=?,email=?,address=?,old_passport_number=?,lost_passport_number=?,fromWhom=?,givenDate=?," +
