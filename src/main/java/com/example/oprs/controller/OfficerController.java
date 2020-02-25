@@ -1,9 +1,9 @@
 package com.example.oprs.controller;
 
-import com.example.oprs.pojo.RequestInfo;
+import com.example.oprs.pojo.ApplicationInfo;
 import com.example.oprs.pojo.Search;
 import com.example.oprs.pojo.Status;
-import com.example.oprs.service.RequestService;
+import com.example.oprs.service.ApplicationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,11 +15,11 @@ import java.util.List;
 @Controller
 @RequestMapping("/workPlace")
 public class OfficerController {
-    private final RequestService requestService;
+    private final ApplicationService applicationService;
 
 
-    public OfficerController(RequestService requestService) {
-        this.requestService = requestService;
+    public OfficerController(ApplicationService applicationService) {
+        this.applicationService = applicationService;
     }
 
 
@@ -35,27 +35,27 @@ public class OfficerController {
 
     @PostMapping("/getRequests")
     public String Search(Model model, Search search) {
-        List<RequestInfo> requests = requestService.search(search);
+        List<ApplicationInfo> requests = applicationService.search(search);
         model.addAttribute("requests", requests);
         return "officer/viewForOfficers";
     }
 
     @PostMapping("/RequestsDetail")
     public String RequestsDetail(Model model, Long id) {
-        List<RequestInfo> requests = requestService.getRequestById(id);
+        List<ApplicationInfo> requests = applicationService.getRequestById(id);
         model.addAttribute("requests", requests);
         return "officer/RequestsDetail";
     }
 
     @PostMapping("/editRequest")
-    public String editRequest(Model model, RequestInfo requestInfo) {
-        requestService.updateRequest(requestInfo);
+    public String editRequest(Model model, ApplicationInfo applicationInfo) {
+        applicationService.updateRequest(applicationInfo);
         return "officer/viewForOfficers";
     }
 
     @PostMapping("/editStatus")
     public String editStatus(Model model, Status status, Long id) {
-        requestService.updateStatus(status, id);
+        applicationService.updateStatus(status, id);
         return "officer/viewForOfficers";
     }
 }

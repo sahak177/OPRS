@@ -15,8 +15,6 @@ public interface UserService {
 
     boolean updatePassword(String encodedNewPassword, String currentUser);
 
-    void validateInput(User user) throws InValidInputException;
-
     boolean addToken(Long userId, String token);
 
 

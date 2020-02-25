@@ -1,18 +1,18 @@
 package com.example.oprs.mappers;
 
+import com.example.oprs.pojo.ApplicationInfo;
 import com.example.oprs.pojo.Purpose;
-import com.example.oprs.pojo.RequestInfo;
 import com.example.oprs.pojo.Status;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class RequestMapper implements RowMapper<RequestInfo> {
+public class RequestMapper implements RowMapper<ApplicationInfo> {
 
-    public RequestInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public ApplicationInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
 
-        RequestInfo req = new RequestInfo();
+        ApplicationInfo req = new ApplicationInfo();
         req.setId(rs.getLong("id"));
         req.setSocialSecurityNumber(rs.getString("social_number"));
         req.setFirstName(rs.getString("first_name"));

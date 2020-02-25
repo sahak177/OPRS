@@ -46,7 +46,7 @@ footer p {
 }
 .blur-image {
     filter: blur(8px);
-    -webkit-filter: blur(8px);
+    -webkit-filter: blur(3px);
     height: 100%;
     background-position: center;
     background-repeat: no-repeat;

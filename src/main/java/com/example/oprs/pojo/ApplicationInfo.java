@@ -1,29 +1,56 @@
 package com.example.oprs.pojo;
 
+import com.example.oprs.annotation.EmptyOrByRegex;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
-public class RequestInfo {
+public class ApplicationInfo {
     private long id;
+    @Pattern(regexp = "[A-Z][a-z]*", message = "First Name must have one capital letter and then a small letters")
+    @Size(min = 3, max = 50, message = "Name characters size must be between 3 and 50")
+    @NotNull(message = "First Name can't be null")
     private String firstName;
+    @Pattern(regexp = "[A-Z][a-z]*", message = "Last Name must have one capital letter and then a small letters")
+    @Size(min = 3, max = 50, message = "Last Name characters size must be between 3 and 50")
+    @NotNull(message = "Last Name can't be null")
     private String lastName;
+    @NotNull(message = "Gender can't be null")
     private Boolean gender;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Birth date can't be null")
     private Date dateOfBirth;
+    @NotNull(message = "Country can't be null")
     private String countryOfBirth;
+    @Pattern(regexp = "\\d{9}", message = "Social Security Number size must be 9 And only numbers")
+    @NotNull(message = "Social Security Number can't be null")
     private String socialSecurityNumber;
+    @NotNull(message = "address can't be null")
     private String address;
+    @Email
+    @NotNull(message = "Email can't be null")
     private String email;
+    @Pattern(regexp = "\\d{9}", message = "Phone Number size must be 9 And only numbers")
+    @NotNull(message = "Phone Number can't be null")
     private String phoneNumber;
+    @Pattern(regexp = "\\d{4}", message = "Post Code size must be 4 And only numbers")
+    @NotNull(message = "Post Code can't be null")
     private String postCode;
+    @EmptyOrByRegex(regexp ="[a-z]{2}\\d{7}" , message = "passport number must be like this ( af0983695 ) two letters and then seven numbers")
     private String oldPassportNumber;
+    @EmptyOrByRegex(regexp ="[a-z]{2}\\d{7}" , message = "passport number must be like this ( af0983695 ) two letters and then seven numbers")
     private String lostPassportNumber;
+    @EmptyOrByRegex(regexp ="\\d{3}" , message = "(From Whom) size must be 3 And only numbers\"")
     private String fromWhom;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date givenDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date expireDate;
+    @NotNull(message = "purpose can't be null")
     private Purpose purpose;
     private String photoUrl;
     private Status status;

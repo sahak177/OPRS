@@ -1,9 +1,9 @@
 package com.example.oprs.controller;
 
-import com.example.oprs.pojo.RequestInfo;
+import com.example.oprs.pojo.ApplicationInfo;
 import com.example.oprs.pojo.Search;
 import com.example.oprs.pojo.Status;
-import com.example.oprs.service.RequestService;
+import com.example.oprs.service.ApplicationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,11 +15,11 @@ import java.util.List;
 @Controller
 @RequestMapping("/vard")
 public class VARDOfficerController {
-    private final RequestService requestService;
+    private final ApplicationService applicationService;
 
 
-    public VARDOfficerController(RequestService requestService) {
-        this.requestService = requestService;
+    public VARDOfficerController(ApplicationService applicationService) {
+        this.applicationService = applicationService;
     }
 
 
@@ -35,7 +35,7 @@ public class VARDOfficerController {
 
     @PostMapping("/getRequests")
     public String Search(Model model, Search search) {
-        List<RequestInfo> requests = requestService.search(search);
+        List<ApplicationInfo> requests = applicationService.search(search);
         model.addAttribute("requests", requests);
         return "vard_officer/viewForOfficers";
     }
@@ -43,14 +43,14 @@ public class VARDOfficerController {
 
     @PostMapping("/requestsDetail")
     public String RequestsDetail(Model model, Long id) {
-        List<RequestInfo> requests = requestService.getRequestById(id);
+        List<ApplicationInfo> requests = applicationService.getRequestById(id);
         model.addAttribute("requests", requests);
         return "vard_officer/RequestsDetail";
     }
 
     @PostMapping("/updateStatus")
     public String editStatus(Status status, Long id) {
-        requestService.updateStatus(status, id);
+        applicationService.updateStatus(status, id);
         return "vard_officer/viewForOfficers";
     }
 }

@@ -1,26 +1,26 @@
 package com.example.oprs.repository;
 
-import com.example.oprs.pojo.RequestInfo;
+import com.example.oprs.pojo.ApplicationInfo;
 import com.example.oprs.pojo.Status;
 
 import java.util.List;
 
 public interface RequestRepository {
 
-    List<RequestInfo> getRequestByToken(String token);
+    List<ApplicationInfo> getRequestByToken(String token);
 
-    List<RequestInfo> getRequestById(Long id);
+    List<ApplicationInfo> getRequestById(Long id);
 
-    List<RequestInfo> getRequestByStatus(String status);
+    List<ApplicationInfo> getRequestByStatus(String status);
 
-    boolean addRequest(RequestInfo requestInfo, String userEmail);
+    boolean addRequest(ApplicationInfo applicationInfo, String userEmail);
 
-    List<RequestInfo> getRequestBySSN(Long socialSecurityNumber);
+    List<ApplicationInfo> getRequestBySSN(Long socialSecurityNumber);
 
-    List<RequestInfo> getRequestByName(String name);
+    List<ApplicationInfo> getRequestByName(String name);
 
     void updateStatus(Status status, Long id);
 
-    void updateRequest(RequestInfo requestInfo);
+    void updateRequest(ApplicationInfo applicationInfo);
 
 }
