@@ -1,0 +1,22 @@
+<?xml version = "1.0"?>
+
+<class>
+    <application>
+        <firstname>Jasvir</firstname>
+        <lastname>Singh</lastname>
+        <email>Jazz</email>
+        <gender>true</gender>
+        <dateOfBirth>2006-06-20</dateOfBirth>
+        <countryOfBirth>Armenya</countryOfBirth>
+        <socialSecurityNumber>123456789</socialSecurityNumber>
+        <address>dghdghd</address>
+        <phoneNumber>055577689</phoneNumber>
+        <postCode>0806</postCode>
+        <oldPassportNumber>ah0684957</oldPassportNumber>
+        <lostPassportNumber>ah0684957</lostPassportNumber>
+        <fromWhom>044</fromWhom>
+        <givenDate>2006-06-20</givenDate>
+        <expireDate>2006-06-20</expireDate>
+        <purpose>EXPIRED</purpose>
+    </application>
+</class>

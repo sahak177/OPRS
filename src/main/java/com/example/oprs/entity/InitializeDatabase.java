@@ -2,7 +2,6 @@ package com.example.oprs.entity;
 
 
 import com.example.oprs.pojo.RoleType;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -102,8 +101,8 @@ public class InitializeDatabase {
                 "\tgender tinyint not null,\n" +
                 "\tbirthDate TIMESTAMP not null,\n" +
                 "\tbirthCountry varchar(225) not null,\n" +
-                "\tphone_number bigint not null,\n" +
-                "\tpost_code int not null,\n" +
+                "\tphone_number varchar(20)not null,\n" +
+                "\tpost_code varchar(20) not null,\n" +
                 "\temail varchar(225) not null,\n" +
                 "\taddress varchar(225) not null,\n" +
                 "\told_passport_number varchar(45) ,\n" +

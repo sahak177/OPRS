@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout.html}">
+<head>
+    <title>Oprs.com</title>
+</head>
+<body>
+<div layout:fragment="content" class="bg-light border-right col-md-10">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form th:action="@{/xml/upload}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="multi">xml</label>:
+                <input type="file"
+                       id="multi"
+                       name="multi"
+                       class="form-control"
+                       placeholder="multi"
+                       accept="text/xml"
+                       required="required">
+            </div>
+                <input type="submit" value="upload" class="btn">
+            </form>
+    </div>
+</div>
+</div>
+</body>
+</html>

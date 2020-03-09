@@ -53,6 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/js/**",
                         "/css/**",
                         "/img/**",
+                        "/xml/**",
                         "/webjars/**").permitAll()
                 .antMatchers("/*").permitAll()
                 .antMatchers("/admin/*").hasRole("ADMIN")
@@ -65,7 +66,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .permitAll()
-                .defaultSuccessUrl("/account")
+                .defaultSuccessUrl("/account/account")
                 .and()
                 .logout().invalidateHttpSession(true)
                 .clearAuthentication(true)
