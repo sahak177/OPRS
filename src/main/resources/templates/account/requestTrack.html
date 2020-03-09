@@ -9,12 +9,14 @@
 <div layout:fragment="content" class="bg-light border-right col-md-10">
 
     <div th:if="${requests==null}">
-        <div class="err" color="#FF0000"> <td th:text="${message}"/></div>
+        <div class="err">
+            <td th:text="${message}"></td>
+        </div>
     </div>
     <div th:if="${requests!=null}">
         <h3>all requests</h3>
         <div th:if="${requests.isEmpty()}">
-            <div class="err" color="#FF0000">no available requests</div>
+            <div class="err">no available requests</div>
         </div>
         <div th:if="${!requests.isEmpty()}">
             <table class="table">
@@ -41,10 +43,14 @@
                         <td th:text="${request.getStatus()}"/>
                         <td th:text="${request.getCreateDate()}"/>
                         <td>
-                        <form th:action="@{/history}" method="post" >
-                        <input type="hidden" name="requestId" th:value="${request.getId()}">
-                        <input type="submit" value="See history" class="btn">
-                        </form>
+                            <form th:action="@{/xml/download}" method="post">
+                                <input type="hidden" name="id" th:value="${request.getId()}">
+                                <input type="submit" value="Download" class="btn">
+                            </form>
+                            <form th:action="@{/account/history}" method="post">
+                                <input type="hidden" name="applicationId" th:value="${request.getId()}">
+                                <input type="submit" value="See history" class="btn">
+                            </form>
                     </tr>
                     </tr>
                 </div>

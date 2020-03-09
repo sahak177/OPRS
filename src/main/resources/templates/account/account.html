@@ -12,19 +12,17 @@
     <h2>this is your account</h2>
     <div class="row">
         <div class="col-50">
-            <a href="/request" th:href="@{/purpose}">
+            <a href="/account/request" th:href="@{/account/purpose}">
                 <input type="submit" value="Create New Request" class="btn">
             </a>
         </div>
         <div class="col-50">
+
+
             <div th:each="token: ${user.getTokens()}">
-                <form th:action="@{/track}" method="post">
-                    <input type="hidden" name="token" th:value="${token}">
-                    <input type="submit" id="submit" th:value="${'track request  '+token}" class="btn">
-
-
-
-                </form>
+                <a th:href="@{/account/track/{token}(token = ${token})}">
+                    <input type="submit" th:value="${'track request  '+token}" class="btn">
+                </a>
             </div>
         </div>
     </div>

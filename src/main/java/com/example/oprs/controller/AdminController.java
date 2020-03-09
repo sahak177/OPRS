@@ -28,6 +28,7 @@ public class AdminController {
 
     @GetMapping("/addOfficer")
     public String addOfficerGet(User officer, Model model) {
+        model.addAttribute("officer", officer);
         return "admin/registerOfficer";
     }
 

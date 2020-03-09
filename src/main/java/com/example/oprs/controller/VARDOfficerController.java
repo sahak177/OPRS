@@ -22,7 +22,6 @@ public class VARDOfficerController {
         this.applicationService = applicationService;
     }
 
-
     @GetMapping("/work")
     public String work() {
         return "vard_officer/work";

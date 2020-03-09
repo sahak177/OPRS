@@ -31,7 +31,7 @@ public class AuthController {
     public Object signin(HttpServletRequest request) {
 
         if (request.getUserPrincipal() != null) {
-            return new RedirectView("/account");
+            return new RedirectView("/account/account");
         }
 
         return "basic/login";

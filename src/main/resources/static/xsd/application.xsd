@@ -1,0 +1,128 @@
+<?xml version = "1.0"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name='class'>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name='application' type='ApplicationInfo' minOccurs='0'
+                            maxOccurs='unbounded'/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="ApplicationInfo">
+        <xs:sequence>
+            <xs:element name="firstname">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[A-Z][a-z]*"/>
+                        <xs:maxLength value="25"/>
+                        <xs:minLength value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="lastname">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[A-Z][a-z]*"/>
+                        <xs:maxLength value="25"/>
+                        <xs:minLength value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="email">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value=".*"/>
+                        <xs:maxLength value="25"/>
+                        <xs:minLength value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="country">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[A-Z][a-z]*"/>
+                        <xs:maxLength value="25"/>
+                        <xs:minLength value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="address">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="phoneNumber">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="\d{9}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="postCode">
+                <xs:simpleType>
+                    <xs:restriction base="xs:long">
+                        <xs:pattern value="\d{4}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ssn">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="\d{9}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="purpose">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="NEW"/>
+                        <xs:enumeration value="EXPIRED"/>
+                        <xs:enumeration value="LOST_OR_DAMAGED"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="gender" type="xs:boolean"/>
+
+            <xs:element name="lostPassportNumber" >
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="[*]{0}|[ ]{1}|[a-z]{2}\d{7}"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:element>
+            <xs:element name="oldPassportNumber">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[*]{0}|[ ]{1}|[a-z]{2}\d{7}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="fromWhom">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[*]{0}|[ ]{1}|\d{3}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="expireDate">
+                <xs:simpleType>
+                    <xs:list itemType="xs:date"/>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="givenDate">
+                <xs:simpleType>
+                    <xs:list itemType="xs:date"/>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dateOfBirth">
+                <xs:simpleType>
+                    <xs:list itemType="xs:date"/>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

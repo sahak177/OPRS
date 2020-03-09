@@ -1,6 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:width="http://www.w3.org/1999/xhtml"
-      xmlns:height="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
 <th:block th:fragment="header">
     <nav class="navbar navbar-inverse navbar-static-top">
@@ -17,21 +16,21 @@
                         <a href="/" th:href="@{/}">Home</a>
                     </li>
                     <li th:if="${#authorization.expression('isAuthenticated()')}">
-                        <a href="/account" th:href="@{/account}">My Account</a>
+                        <a href="/account" th:href="@{/account/account}">My Account</a>
                     </li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
 
                     <li th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')') }">
-                        <a href="/work/1" th:href="@{/admin/workPlace}">Admin place</a>
+                        <a href="/admin/workPlace" th:href="@{/admin/workPlace}">Admin place</a>
                     </li>
 
                     <li th:if="${ #authorization.expression('hasAuthority(''ROLE_OFFICER'')')}">
                         <a href="/workPlace/work" th:href="@{/workPlace/work}">working place</a>
                     </li>
                     <li th:if="${#authorization.expression('hasAuthority(''ROLE_VARD_OFFICER'')')}">
-                        <a href="/workPlace/work" th:href="@{/vard/work}">working place for vard</a>
+                        <a href="/vard/work" th:href="@{/vard/work}">working place for vard</a>
                     </li>
 
                     <li th:if="${#authorization.expression('hasAuthority(''ROLE_OFFICER'')')||
@@ -43,7 +42,7 @@
 
 
                     <li th:if="${#authorization.expression('!isAuthenticated()')}">
-                        <a href="/signin" th:href="@{/login}">
+                        <a href="/login" th:href="@{/login}">
                             <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Sign in
                         </a>
                     </li>
