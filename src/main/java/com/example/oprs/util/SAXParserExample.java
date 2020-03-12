@@ -1,7 +1,7 @@
 package com.example.oprs.util;
 
-import com.example.oprs.pojo.ApplicationInfo;
-import com.example.oprs.pojo.Purpose;
+import com.example.oprs.dto.ApplicationInfoDto;
+import com.example.oprs.enums.Purpose;
 import lombok.SneakyThrows;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -27,7 +27,7 @@ import java.util.Date;
 
 public class SAXParserExample extends DefaultHandler {
 
-    private static ApplicationInfo app;
+    private static ApplicationInfoDto app;
     private static String text;
     private static int t = 0;
     public static final String xmlFilePath = "target\\classes\\static\\xml\\";
@@ -36,15 +36,13 @@ public class SAXParserExample extends DefaultHandler {
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
         if ("application".equals(qName)) {
-            app = new ApplicationInfo();
+            app = new ApplicationInfoDto();
         }
     }
 
     @SneakyThrows
     @Override
     public void endElement(String uri, String localName, String qName) {
-        t++;
-        System.err.println(text + "              " + t);
         switch (qName) {
             case "application": {
                 break;
@@ -132,7 +130,7 @@ public class SAXParserExample extends DefaultHandler {
         text = String.copyValueOf(ch, start, length).trim();
     }
 
-    public static File createAndWriteXmlDocument(ApplicationInfo applicationInfo, int sessionId) {
+    public static File createAndWriteXmlDocument(ApplicationInfoDto applicationInfo, int sessionId) {
         File file = null;
         String fileName = xmlFilePath + "file" + sessionId + ".xml";
         try {
@@ -250,7 +248,7 @@ public class SAXParserExample extends DefaultHandler {
         return file;
     }
 
-    public static ApplicationInfo readeXmlDocument(File file) throws
+    public static ApplicationInfoDto readeXmlDocument(File file) throws
             ParserConfigurationException, SAXException, IOException {
         String xsdPath = "src/main/resources/static/xsd/application.xsd";
         String xmlPath = file.getPath();

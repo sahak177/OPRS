@@ -1,6 +1,6 @@
 package com.example.oprs.service.impl;
 
-import com.example.oprs.pojo.ApplicationInfo;
+import com.example.oprs.dto.ApplicationInfoDto;
 import com.example.oprs.service.XMLService;
 import com.example.oprs.util.SAXParserExample;
 import org.springframework.stereotype.Service;
@@ -28,15 +28,15 @@ public class XMLServiceImpl implements XMLService {
     }
 
     @Override
-    public ApplicationInfo readObjectFromXML(MultipartFile multipartFile) throws IOException, ParserConfigurationException, SAXException {
+    public ApplicationInfoDto readObjectFromXML(MultipartFile multipartFile) throws IOException, ParserConfigurationException, SAXException {
         File file = convertMultiPartToFile(multipartFile);
-        ApplicationInfo applicationInfo = SAXParserExample.readeXmlDocument(file);
+        ApplicationInfoDto applicationInfo = SAXParserExample.readeXmlDocument(file);
         file.delete();
         return applicationInfo;
     }
 
     @Override
-    public String WriteObjectToXML(ApplicationInfo applicationInfo) {
+    public String WriteObjectToXML(ApplicationInfoDto applicationInfo) {
 
         this.file = SAXParserExample.createAndWriteXmlDocument(applicationInfo, sessionId);
 

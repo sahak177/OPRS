@@ -1,28 +1,26 @@
 package com.example.oprs.service;
 
-import com.example.oprs.exception.InValidInputException;
-import com.example.oprs.pojo.ApplicationInfo;
-import com.example.oprs.pojo.Search;
-import com.example.oprs.pojo.Status;
-import org.springframework.web.multipart.MultipartFile;
+import com.example.oprs.dto.ApplicationInfoDto;
+import com.example.oprs.dto.SearchDto;
+import com.example.oprs.enums.Status;
 
 import java.util.List;
 
 public interface ApplicationService {
 
-    boolean doRequest(ApplicationInfo applicationInfo, String email);
 
-    List<ApplicationInfo> getAll(String status);
+    boolean doRequest(ApplicationInfoDto applicationInfoDto, String email);
 
-    void validateRequestInfo(ApplicationInfo applicationInfo, MultipartFile multiPhoto) throws InValidInputException;
+    List<ApplicationInfoDto> getAll(String status);
 
-    List<ApplicationInfo> search(Search search);
+    List<ApplicationInfoDto> search(SearchDto searchDto);
 
-    List<ApplicationInfo> getRequestByToken(String token);
+    List<ApplicationInfoDto> getRequestByToken(String token);
 
-    List<ApplicationInfo> getRequestById(Long id);
+    List<ApplicationInfoDto> getRequestById(Long id);
 
     void updateStatus(Status status, Long id);
 
-    void updateRequest(ApplicationInfo applicationInfo);
+
+    void updateRequest(ApplicationInfoDto applicationInfo);
 }

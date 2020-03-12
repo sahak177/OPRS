@@ -204,9 +204,9 @@
                                     </form>
                                     <form th:action="@{/workPlace/editStatus}" method="post">
                                         <input type="hidden" name="id" th:value="${request.getId()}">
-                                        <input type="submit" th:value="${T(com.example.oprs.pojo.Status).VALIDATED}"
+                                        <input type="submit" th:value="${T(com.example.oprs.enums.Status).VALIDATED}"
                                                name="status" class="btn">
-                                        <input type="submit" th:value="${T(com.example.oprs.pojo.Status).DECLINED}"
+                                        <input type="submit" th:value="${T(com.example.oprs.enums.Status).DECLINED}"
                                                name="status" class="btn">
 
                                     </form>

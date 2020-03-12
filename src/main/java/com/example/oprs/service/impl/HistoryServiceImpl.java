@@ -1,7 +1,7 @@
 package com.example.oprs.service.impl;
 
-import com.example.oprs.pojo.Event;
-import com.example.oprs.pojo.History;
+import com.example.oprs.dto.HistoryDto;
+import com.example.oprs.enums.Event;
 import com.example.oprs.repository.HistoryRepository;
 import com.example.oprs.service.HistoryService;
 import org.springframework.stereotype.Service;
@@ -22,13 +22,13 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
-    public List<History> getHistoryByRequestInfoId(Long id) {
+    public List<HistoryDto> getHistoryByRequestInfoId(Long id) {
 
         return historyRepository.getHistoryByRequestInfoId(id);
     }
 
     @Override
-    public List<History> getHistoryByUserId(Long id) {
+    public List<HistoryDto> getHistoryByUserId(Long id) {
 
         return historyRepository.getHistoryByUserId(id);
     }

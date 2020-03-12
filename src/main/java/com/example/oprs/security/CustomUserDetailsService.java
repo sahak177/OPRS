@@ -1,7 +1,7 @@
 package com.example.oprs.security;
 
 
-import com.example.oprs.pojo.User;
+import com.example.oprs.dao.User;
 import com.example.oprs.service.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,7 +21,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
-        User user = userService.getUserByEmail(username);
+        User user = userService.getUserByEmailForSecurity(username);
         return UserPrincipal.create(user);
     }
 

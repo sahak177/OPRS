@@ -1,4 +1,4 @@
-package com.example.oprs.pojo;
+package com.example.oprs.dao;
 
 public class Role {
 

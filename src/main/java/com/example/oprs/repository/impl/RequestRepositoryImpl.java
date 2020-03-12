@@ -1,10 +1,11 @@
 package com.example.oprs.repository.impl;
 
-import com.example.oprs.mappers.RequestMapper;
-import com.example.oprs.pojo.ApplicationInfo;
-import com.example.oprs.pojo.Event;
-import com.example.oprs.pojo.Status;
-import com.example.oprs.pojo.User;
+import com.example.oprs.dto.UserDto;
+import com.example.oprs.mappers.RequestDbMapper;
+import com.example.oprs.dao.ApplicationInfo;
+import com.example.oprs.enums.Event;
+import com.example.oprs.enums.Status;
+import com.example.oprs.dao.User;
 import com.example.oprs.repository.RequestRepository;
 import com.example.oprs.service.HistoryService;
 import com.example.oprs.service.UserService;
@@ -29,7 +30,7 @@ public class RequestRepositoryImpl implements RequestRepository {
     @Override
     public boolean addRequest(ApplicationInfo req, String userEmail) {
         Status defaultStatus = Status.SUBMITTED;
-        User user = userService.getUserByEmail(userEmail);
+        UserDto user = userService.getUserByEmail(userEmail);
         userService.addToken(user.getId(), req.getToken());
 
         String str = "insert into request_Info(social_number,first_name,last_name,gender,birthDate," +
@@ -56,7 +57,7 @@ public class RequestRepositoryImpl implements RequestRepository {
         List<ApplicationInfo> requests = jdbcTemplate.query(
                 bigQuery,
                 new Object[]{token},
-                new RequestMapper());
+                new RequestDbMapper());
         return requests;
     }
 
@@ -66,7 +67,7 @@ public class RequestRepositoryImpl implements RequestRepository {
         List<ApplicationInfo> requests = jdbcTemplate.query(
                 bigQuery,
                 new Object[]{id},
-                new RequestMapper());
+                new RequestDbMapper());
 
         return requests;
     }
@@ -78,7 +79,7 @@ public class RequestRepositoryImpl implements RequestRepository {
         List<ApplicationInfo> requests = jdbcTemplate.query(
                 bigQuery,
                 new Object[]{status},
-                new RequestMapper());
+                new RequestDbMapper());
 
         return requests;
     }
@@ -91,7 +92,7 @@ public class RequestRepositoryImpl implements RequestRepository {
         List<ApplicationInfo> requests = jdbcTemplate.query(
                 bigQuery,
                 new Object[]{socialSecurityNumber},
-                new RequestMapper());
+                new RequestDbMapper());
 
         return requests;
     }
@@ -103,7 +104,7 @@ public class RequestRepositoryImpl implements RequestRepository {
         List<ApplicationInfo> requests = jdbcTemplate.query(
                 bigQuery,
                 new Object[]{name},
-                new RequestMapper());
+                new RequestDbMapper());
 
         return requests;
     }

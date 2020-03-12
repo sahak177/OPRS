@@ -1,6 +1,6 @@
 package com.example.oprs.controller;
 
-import com.example.oprs.pojo.User;
+import com.example.oprs.dao.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

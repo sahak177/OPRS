@@ -1,10 +1,11 @@
-package com.example.oprs.pojo;
+package com.example.oprs.dto;
 
+import com.example.oprs.enums.Event;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-public class History {
+public class HistoryDto {
     private Event event;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createDate;

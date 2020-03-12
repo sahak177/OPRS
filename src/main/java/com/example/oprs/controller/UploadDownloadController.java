@@ -1,7 +1,7 @@
 package com.example.oprs.controller;
 
-import com.example.oprs.pojo.ApplicationInfo;
-import com.example.oprs.pojo.User;
+import com.example.oprs.dto.ApplicationInfoDto;
+import com.example.oprs.dto.UserDto;
 import com.example.oprs.service.ApplicationService;
 import com.example.oprs.service.UserService;
 import com.example.oprs.service.XMLService;
@@ -35,8 +35,8 @@ public class UploadDownloadController {
     @PostMapping("/download")
     public String downloadFile(HttpServletRequest request, Model model, Long id) {
         Principal principal = request.getUserPrincipal();
-        User user = userService.getUserByEmail(principal.getName());
-        List<ApplicationInfo> app = applicationService.getRequestById(id);
+        UserDto user = userService.getUserByEmail(principal.getName());
+        List<ApplicationInfoDto> app = applicationService.getRequestById(id);
         if (!app.isEmpty() && user.getId().equals(app.get(0).getUserId())) {
             String path = xmlService.WriteObjectToXML(app.get(0));
             model.addAttribute("file", path);
@@ -59,7 +59,7 @@ public class UploadDownloadController {
         String photoName = "Demo";
         if (!multi.isEmpty()) {
             Principal principal = request.getUserPrincipal();
-            ApplicationInfo app = xmlService.readObjectFromXML(multi);
+            ApplicationInfoDto app = xmlService.readObjectFromXML(multi);
             app.setPhotoUrl(photoName);
             applicationService.doRequest(app, principal.getName());
             model.addAttribute("message", app.getFirstName() + "   your request added to validation");

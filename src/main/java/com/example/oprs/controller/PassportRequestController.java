@@ -1,9 +1,10 @@
 package com.example.oprs.controller;
 
-import com.example.oprs.pojo.Purpose;
-import com.example.oprs.pojo.ApplicationInfo;
-import com.example.oprs.service.FileService;
+import com.example.oprs.dao.ApplicationInfo;
+import com.example.oprs.dto.ApplicationInfoDto;
+import com.example.oprs.enums.Purpose;
 import com.example.oprs.service.ApplicationService;
+import com.example.oprs.service.ImgFileService;
 import com.example.oprs.util.UniqueNameGenerator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,11 +22,11 @@ import java.security.Principal;
 @RequestMapping("/passport")
 public class PassportRequestController {
 
-    private final FileService fileService;
+    private final ImgFileService imgFileService;
     private final ApplicationService applicationService;
 
-    public PassportRequestController(FileService fileService, ApplicationService applicationService) {
-        this.fileService = fileService;
+    public PassportRequestController(ImgFileService imgFileService, ApplicationService applicationService) {
+        this.imgFileService = imgFileService;
         this.applicationService = applicationService;
     }
 
@@ -40,7 +41,7 @@ public class PassportRequestController {
 
 
     @PostMapping("/step1")
-    public Object step1(@Valid ApplicationInfo applicationInfo, Errors errors, MultipartFile multiPhoto, HttpServletRequest request, Model model) {
+    public Object step1(@Valid ApplicationInfoDto applicationInfo, Errors errors, MultipartFile multiPhoto, HttpServletRequest request, Model model) {
         if (errors.hasErrors()) {
             model.addAttribute("applicationInfo", applicationInfo);
             model.addAttribute("photo", multiPhoto);
@@ -49,7 +50,7 @@ public class PassportRequestController {
         } else {
             Principal principal = request.getUserPrincipal();
             String name = UniqueNameGenerator.generateName("photo");
-            String photoName = fileService.uploadFile(multiPhoto, name);
+            String photoName = imgFileService.uploadFile(multiPhoto, name);
             applicationInfo.setPhotoUrl(photoName);
             applicationService.doRequest(applicationInfo, principal.getName());
             return "passport/request5";

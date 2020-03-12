@@ -1,4 +1,4 @@
-package com.example.oprs.pojo;
+package com.example.oprs.enums;
 
 public enum RoleType {
     ROLE_ADMIN,

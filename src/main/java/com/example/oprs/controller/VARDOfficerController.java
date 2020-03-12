@@ -1,8 +1,8 @@
 package com.example.oprs.controller;
 
-import com.example.oprs.pojo.ApplicationInfo;
-import com.example.oprs.pojo.Search;
-import com.example.oprs.pojo.Status;
+import com.example.oprs.dto.ApplicationInfoDto;
+import com.example.oprs.dto.SearchDto;
+import com.example.oprs.enums.Status;
 import com.example.oprs.service.ApplicationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,8 +33,8 @@ public class VARDOfficerController {
     }
 
     @PostMapping("/getRequests")
-    public String Search(Model model, Search search) {
-        List<ApplicationInfo> requests = applicationService.search(search);
+    public String Search(Model model, SearchDto search) {
+        List<ApplicationInfoDto> requests = applicationService.search(search);
         model.addAttribute("requests", requests);
         return "vard_officer/viewForOfficers";
     }
@@ -42,7 +42,7 @@ public class VARDOfficerController {
 
     @PostMapping("/requestsDetail")
     public String RequestsDetail(Model model, Long id) {
-        List<ApplicationInfo> requests = applicationService.getRequestById(id);
+        List<ApplicationInfoDto> requests = applicationService.getRequestById(id);
         model.addAttribute("requests", requests);
         return "vard_officer/RequestsDetail";
     }

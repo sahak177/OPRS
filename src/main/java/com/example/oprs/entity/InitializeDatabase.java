@@ -1,7 +1,7 @@
 package com.example.oprs.entity;
 
 
-import com.example.oprs.pojo.RoleType;
+import com.example.oprs.enums.RoleType;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,7 +19,7 @@ public class InitializeDatabase {
         this.jdbcTemplate = jdbcTemplate;
         this.passwordEncoder = passwordEncoder;
         this.properties = properties;
-        run();
+//        run();
     }
 
     private void run() {

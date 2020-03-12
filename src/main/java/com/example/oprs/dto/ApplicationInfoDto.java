@@ -1,6 +1,8 @@
-package com.example.oprs.pojo;
+package com.example.oprs.dto;
 
 import com.example.oprs.annotation.EmptyOrByRegex;
+import com.example.oprs.enums.Purpose;
+import com.example.oprs.enums.Status;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Email;
@@ -9,7 +11,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
-public class ApplicationInfo {
+public class ApplicationInfoDto {
     private long id;
     @Pattern(regexp = "[A-Z][a-z]*", message = "First Name must have one capital letter and then a small letters")
     @Size(min = 3, max = 50, message = "Name characters size must be between 3 and 50")

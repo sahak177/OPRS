@@ -1,8 +1,8 @@
 package com.example.oprs.controller;
 
-import com.example.oprs.pojo.ApplicationInfo;
-import com.example.oprs.pojo.History;
-import com.example.oprs.pojo.User;
+import com.example.oprs.dto.ApplicationInfoDto;
+import com.example.oprs.dto.HistoryDto;
+import com.example.oprs.dto.UserDto;
 import com.example.oprs.service.ApplicationService;
 import com.example.oprs.service.HistoryService;
 import com.example.oprs.service.UserService;
@@ -36,7 +36,7 @@ public class AccountController {
     @GetMapping("/account")
     public Object account(HttpServletRequest request, Model model) {
         Principal principal = request.getUserPrincipal();
-        User user = userService.getUserByEmail(principal.getName());
+        UserDto user = userService.getUserByEmail(principal.getName());
         model.addAttribute("user", user);
         model.addAttribute("message", "you successfully login");
 
@@ -61,8 +61,8 @@ public class AccountController {
     @GetMapping("/track/{token}")
     public String track(@PathVariable("token") String token, HttpServletRequest req, Model model) {
         Principal principal = req.getUserPrincipal();
-        User user = userService.getUserByEmail(principal.getName());
-        List<ApplicationInfo> requests = applicationService.getRequestByToken(token);
+        UserDto user = userService.getUserByEmail(principal.getName());
+        List<ApplicationInfoDto> requests = applicationService.getRequestByToken(token);
 
         if (!requests.isEmpty() && user.getId().equals(requests.get(0).getUserId())) {
             model.addAttribute("requests", requests);
@@ -75,8 +75,8 @@ public class AccountController {
     @PostMapping("/history")
     public String history(HttpServletRequest req, Model model, Long applicationId) {
         Principal principal = req.getUserPrincipal();
-        User user = userService.getUserByEmail(principal.getName());
-        List<History> histories = historyService.getHistoryByRequestInfoId(applicationId);
+        UserDto user = userService.getUserByEmail(principal.getName());
+        List<HistoryDto> histories = historyService.getHistoryByRequestInfoId(applicationId);
         if (!histories.isEmpty() && user.getId().equals(histories.get(0).getUserId())) {
             model.addAttribute("histories", histories);
         } else {

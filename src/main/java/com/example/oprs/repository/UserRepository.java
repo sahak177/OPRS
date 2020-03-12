@@ -1,6 +1,6 @@
 package com.example.oprs.repository;
 
-import com.example.oprs.pojo.User;
+import com.example.oprs.dao.User;
 
 
 public interface UserRepository {

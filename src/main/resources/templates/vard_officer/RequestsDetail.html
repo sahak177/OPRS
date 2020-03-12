@@ -128,13 +128,13 @@
                                 <div class="col-sm-6 col-sm-offset-3">
                                     <form th:action="@{/vard/updateStatus}" method="post">
                                         <input type="hidden" name="id" th:value="${request.getId()}">
-                                        <input type="submit" th:value="${T(com.example.oprs.pojo.Status).REJECTED}"
+                                        <input type="submit" th:value="${T(com.example.oprs.enums.Status).REJECTED}"
                                                name="status" class="btn">
-                                        <input type="submit" th:value="${T(com.example.oprs.pojo.Status).QUERIED}"
+                                        <input type="submit" th:value="${T(com.example.oprs.enums.Status).QUERIED}"
                                                name="status" class="btn">
-                                        <input type="submit" th:value="${T(com.example.oprs.pojo.Status).ISSUED}"
+                                        <input type="submit" th:value="${T(com.example.oprs.enums.Status).ISSUED}"
                                                name="status" class="btn">
-                                        <input type="submit" th:value="${T(com.example.oprs.pojo.Status).DELIVERED}"
+                                        <input type="submit" th:value="${T(com.example.oprs.enums.Status).DELIVERED}"
                                                name="status" class="btn">
                                     </form>
                                 </div>

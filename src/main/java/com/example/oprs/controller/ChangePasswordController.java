@@ -1,7 +1,7 @@
 package com.example.oprs.controller;
 
-import com.example.oprs.pojo.ChangePassword;
-import com.example.oprs.pojo.User;
+import com.example.oprs.dto.ChangePasswordDto;
+import com.example.oprs.dto.UserDto;
 import com.example.oprs.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -21,7 +21,7 @@ public class ChangePasswordController {
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
 
-    public ChangePasswordController( UserService userService, PasswordEncoder passwordEncoder) {
+    public ChangePasswordController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
@@ -32,14 +32,14 @@ public class ChangePasswordController {
     }
 
     @PostMapping("/changePassword")
-    public Object change(HttpServletRequest request, ChangePassword changePassword, Model model) {
+    public Object change(HttpServletRequest request, ChangePasswordDto changePassword, Model model) {
 
         if (!changePassword.getNewPassword().equals(changePassword.getRepeatPassword())) {
             model.addAttribute("message", "Repeated Password in not equals to New Password");
             return "change.password/changePassword";
         } else {
             Principal principal = request.getUserPrincipal();
-            User user = userService.getUserByEmail(principal.getName());
+            UserDto user = userService.getUserByEmail(principal.getName());
 
             if (passwordEncoder.matches(changePassword.getOldPassword(), user.getPassword())) {
                 String encodedNewPassword = passwordEncoder.encode(changePassword.getNewPassword());

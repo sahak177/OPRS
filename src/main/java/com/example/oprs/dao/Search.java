@@ -1,4 +1,6 @@
-package com.example.oprs.pojo;
+package com.example.oprs.dao;
+
+import com.example.oprs.enums.Status;
 
 public class Search {
     private String name;

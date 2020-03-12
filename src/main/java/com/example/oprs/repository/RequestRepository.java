@@ -1,7 +1,7 @@
 package com.example.oprs.repository;
 
-import com.example.oprs.pojo.ApplicationInfo;
-import com.example.oprs.pojo.Status;
+import com.example.oprs.dao.ApplicationInfo;
+import com.example.oprs.enums.Status;
 
 import java.util.List;
 

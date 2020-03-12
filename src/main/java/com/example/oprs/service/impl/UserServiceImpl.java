@@ -1,54 +1,55 @@
 package com.example.oprs.service.impl;
 
-import com.example.oprs.exception.InValidInputException;
-import com.example.oprs.pojo.Role;
-import com.example.oprs.pojo.RoleType;
-import com.example.oprs.pojo.User;
+import com.example.oprs.dao.Role;
+import com.example.oprs.dao.User;
+import com.example.oprs.dto.UserDto;
+import com.example.oprs.enums.RoleType;
+import com.example.oprs.mappers.map.dto.dao.UserMapper;
 import com.example.oprs.repository.UserRepository;
 import com.example.oprs.service.UserService;
-import com.example.oprs.util.TextToGraphicConverter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
-
+    private final UserMapper userMapper;
     private final UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
     }
 
 
     @Override
-    public User getUserByEmail(String username) {
+    public UserDto getUserByEmail(String username) {
+        User user = userRepository.getUserByEmail(username);
+        userMapper.map(user, UserDto.class);
+        return userMapper.map(user, UserDto.class);
+    }
 
+    @Override
+    public User getUserByEmailForSecurity(String username) {
         return userRepository.getUserByEmail(username);
     }
 
     @Override
-    public boolean add(User user) {
+    public boolean add(UserDto userDto) {
+        User user = userMapper.map(userDto, User.class);
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         return userRepository.save(user);
     }
 
     @Override
-    public boolean addAsAdmin(User officer, String officerRole) {
+    public boolean addAsAdmin(UserDto officerDto, String officerRole) {
+        User officer = userMapper.map(officerDto, User.class);
         List<Role> roles = new ArrayList<>();
         roles.add(new Role(RoleType.valueOf(officerRole).name()));
         roles.add(new Role(RoleType.ROLE_USER.name()));

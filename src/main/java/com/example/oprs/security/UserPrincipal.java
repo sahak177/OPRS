@@ -1,7 +1,7 @@
 package com.example.oprs.security;
 
 
-import com.example.oprs.pojo.User;
+import com.example.oprs.dao.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

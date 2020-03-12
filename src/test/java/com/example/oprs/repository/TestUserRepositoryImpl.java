@@ -1,6 +1,6 @@
 package com.example.oprs.repository;
 
-import com.example.oprs.pojo.User;
+import com.example.oprs.dao.User;
 import com.example.oprs.repository.impl.UserRepositoryImpl;
 import org.junit.Assert;
 import org.junit.Test;

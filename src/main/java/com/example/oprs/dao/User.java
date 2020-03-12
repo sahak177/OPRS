@@ -1,4 +1,4 @@
-package com.example.oprs.pojo;
+package com.example.oprs.dao;
 
 import com.example.oprs.annotation.CheckSecurityCode;
 import com.example.oprs.annotation.UniqueEmail;

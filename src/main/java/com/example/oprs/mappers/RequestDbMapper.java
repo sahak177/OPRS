@@ -1,14 +1,14 @@
 package com.example.oprs.mappers;
 
-import com.example.oprs.pojo.ApplicationInfo;
-import com.example.oprs.pojo.Purpose;
-import com.example.oprs.pojo.Status;
+import com.example.oprs.dao.ApplicationInfo;
+import com.example.oprs.enums.Purpose;
+import com.example.oprs.enums.Status;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class RequestMapper implements RowMapper<ApplicationInfo> {
+public class RequestDbMapper implements RowMapper<ApplicationInfo> {
 
     public ApplicationInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
 

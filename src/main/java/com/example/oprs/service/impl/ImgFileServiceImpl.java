@@ -1,7 +1,7 @@
 package com.example.oprs.service.impl;
 
 import com.example.oprs.exception.FileStorageException;
-import com.example.oprs.service.FileService;
+import com.example.oprs.service.ImgFileService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 @Service
-public class FileServiceImpl implements FileService {
+public class ImgFileServiceImpl implements ImgFileService {
 
     @Value("target\\classes\\static\\img\\")
     public String uploadDir;

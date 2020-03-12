@@ -1,6 +1,7 @@
 package com.example.oprs.service;
 
-import com.example.oprs.pojo.User;
+import com.example.oprs.dao.User;
+import com.example.oprs.dto.UserDto;
 import com.example.oprs.service.impl.UserServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
@@ -26,7 +27,7 @@ public class TestUserServiceImpl {
         String firstName = "Bruce";
         String lastName = "Lee";
 
-        User user = new User();
+        UserDto user = new UserDto();
         user.setSocialSecurityNumber(socialNumber);
         user.setEmail(email);
         user.setPassword(password);
@@ -39,7 +40,7 @@ public class TestUserServiceImpl {
 
     @Test(expected = NullPointerException.class)
     public void testAddByNull() {
-        User user = new User();
+        UserDto user = new UserDto();
         userService.add(user);
     }
 

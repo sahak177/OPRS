@@ -1,14 +1,14 @@
 package com.example.oprs.mappers;
 
 
-import com.example.oprs.pojo.User;
+import com.example.oprs.dao.User;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class UserMapper implements RowMapper<User> {
+public class UserDbMapper implements RowMapper<User> {
     @Override
     public User mapRow(ResultSet rs, int rowNum) throws SQLException {
         User user = new User();

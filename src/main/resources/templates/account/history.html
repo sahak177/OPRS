@@ -11,9 +11,9 @@
         <div class="err" color="#FF0000"> <td th:text="${message}"/></div>
     </div>
     <div th:if="${histories!=null}">
-        <h3>all history</h3>
+        <h3>all historyDto</h3>
         <div th:if="${histories.isEmpty()}">
-            <div class="err" color="#FF0000">no available history</div>
+            <div class="err" color="#FF0000">no available historyDto</div>
         </div>
         <div th:if="${!histories.isEmpty()}">
             <table class="table">
@@ -24,10 +24,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <div th:each="history: ${histories}">
+                <div th:each="historyDto: ${histories}">
                     <tr>
-                        <td th:text="${history.getEvent()}"/>
-                        <td th:text="${history.getCreateDate()}"/>
+                        <td th:text="${historyDto.getEvent()}"/>
+                        <td th:text="${historyDto.getCreateDate()}"/>
                     </tr>
                 </div>
                 </tbody>

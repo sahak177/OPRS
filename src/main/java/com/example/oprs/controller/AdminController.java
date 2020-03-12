@@ -1,6 +1,6 @@
 package com.example.oprs.controller;
 
-import com.example.oprs.pojo.User;
+import com.example.oprs.dto.UserDto;
 import com.example.oprs.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,13 +27,13 @@ public class AdminController {
 
 
     @GetMapping("/addOfficer")
-    public String addOfficerGet(User officer, Model model) {
+    public String addOfficerGet(UserDto officer, Model model) {
         model.addAttribute("officer", officer);
         return "admin/registerOfficer";
     }
 
     @PostMapping("/addOfficer")
-    public String addOfficer(@Valid User officer, Errors errors, Model model, String role) {
+    public String addOfficer(@Valid UserDto officer, Errors errors, Model model, String role) {
         if (errors.hasErrors()) {
             model.addAttribute("officer", officer);
             model.addAttribute("message", " something went wrong try again\n");

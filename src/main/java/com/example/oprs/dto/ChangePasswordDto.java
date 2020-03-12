@@ -1,6 +1,6 @@
-package com.example.oprs.pojo;
+package com.example.oprs.dto;
 
-public class ChangePassword {
+public class ChangePasswordDto {
     String oldPassword;
     String newPassword;
     String repeatPassword;

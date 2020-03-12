@@ -1,17 +1,17 @@
 package com.example.oprs.service;
 
-import com.example.oprs.exception.InValidInputException;
-import com.example.oprs.pojo.User;
-
-import java.io.IOException;
+import com.example.oprs.dao.User;
+import com.example.oprs.dto.UserDto;
 
 public interface UserService {
 
-    User getUserByEmail(String username);
+    UserDto getUserByEmail(String username);
 
-    boolean add(User user);
+    User getUserByEmailForSecurity(String username);
 
-    boolean addAsAdmin(User officer,String officerRole);
+    boolean add(UserDto userDto);
+
+    boolean addAsAdmin(UserDto officerDto, String officerRole);
 
     boolean updatePassword(String encodedNewPassword, String currentUser);
 

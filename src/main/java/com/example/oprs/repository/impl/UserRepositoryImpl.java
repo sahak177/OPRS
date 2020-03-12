@@ -1,9 +1,9 @@
 package com.example.oprs.repository.impl;
 
-import com.example.oprs.mappers.RoleMapper;
-import com.example.oprs.pojo.Role;
-import com.example.oprs.pojo.RoleType;
-import com.example.oprs.pojo.User;
+import com.example.oprs.mappers.RoleDbMapper;
+import com.example.oprs.dao.Role;
+import com.example.oprs.enums.RoleType;
+import com.example.oprs.dao.User;
 import com.example.oprs.repository.UserRepository;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -41,7 +41,7 @@ public class UserRepositoryImpl implements UserRepository {
         List<Role> roles = jdbcTemplate.query(
                 rol,
                 new Object[]{user.getId()},
-                new RoleMapper());
+                new RoleDbMapper());
         user.setRoles(roles);
 
         String tok = "SELECT * FROM Tokens where user_id=? ";

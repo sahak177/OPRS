@@ -45,11 +45,11 @@
                 <div class="form-group">
                     <label for="status">status</label>:
                     <select name="status" id="status" class="form-control">
-                        <option th:value="${T(com.example.oprs.pojo.Status).VALIDATED}" th:text="${T(com.example.oprs.pojo.Status).VALIDATED}"></option>
-                        <option th:value="${T(com.example.oprs.pojo.Status).QUERIED}" th:text="${T(com.example.oprs.pojo.Status).QUERIED}"></option>
-                        <option th:value="${T(com.example.oprs.pojo.Status).ISSUED}" th:text="${T(com.example.oprs.pojo.Status).ISSUED}"></option>
-                        <option th:value="${T(com.example.oprs.pojo.Status).DELIVERED}" th:text="${T(com.example.oprs.pojo.Status).DELIVERED}"></option>
-                        <option th:value="${T(com.example.oprs.pojo.Status).REJECTED}" th:text="${T(com.example.oprs.pojo.Status).REJECTED}"></option>
+                        <option th:value="${T(com.example.oprs.enums.Status).VALIDATED}" th:text="${T(com.example.oprs.enums.Status).VALIDATED}"></option>
+                        <option th:value="${T(com.example.oprs.enums.Status).QUERIED}" th:text="${T(com.example.oprs.enums.Status).QUERIED}"></option>
+                        <option th:value="${T(com.example.oprs.enums.Status).ISSUED}" th:text="${T(com.example.oprs.enums.Status).ISSUED}"></option>
+                        <option th:value="${T(com.example.oprs.enums.Status).DELIVERED}" th:text="${T(com.example.oprs.enums.Status).DELIVERED}"></option>
+                        <option th:value="${T(com.example.oprs.enums.Status).REJECTED}" th:text="${T(com.example.oprs.enums.Status).REJECTED}"></option>
                     </select>
                 </div>
                 <input type="submit" id="submit" value="Search" class="btn" style="float: right;">

@@ -5,7 +5,7 @@ import com.example.oprs.exception.InValidInputException;
 
 import java.io.IOException;
 
-public interface SecurityService {
+public interface SecurityCaptchaService {
 
     String getNewSecurityImgURL() throws IOException;
 

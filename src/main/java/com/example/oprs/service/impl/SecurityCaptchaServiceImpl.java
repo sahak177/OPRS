@@ -1,7 +1,7 @@
 package com.example.oprs.service.impl;
 
 import com.example.oprs.exception.InValidInputException;
-import com.example.oprs.service.SecurityService;
+import com.example.oprs.service.SecurityCaptchaService;
 import com.example.oprs.util.TextToGraphicConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Service
 @SessionScope
-public class SecurityServiceImpl implements SecurityService {
+public class SecurityCaptchaServiceImpl implements SecurityCaptchaService {
     private String securityCode;
 
     @Override
